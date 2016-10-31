@@ -1,0 +1,40 @@
+package com.spring.study.entity;
+
+import javax.persistence.*;
+
+/**
+ * Created by Administrator on 2016/10/21.
+ */
+@Table
+@Entity
+public class Administrator {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;//ID
+    private String user_name;//用户名
+    private String password;//密码
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}

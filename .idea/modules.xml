@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CheckAttendSystem.iml" filepath="$PROJECT_DIR$/.idea/modules/CheckAttendSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CheckAttendSystem_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CheckAttendSystem_main.iml" group="CheckAttendSystem" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CheckAttendSystem_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CheckAttendSystem_test.iml" group="CheckAttendSystem" />
+    </modules>
+  </component>
+</project>

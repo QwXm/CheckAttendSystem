@@ -1,0 +1,102 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>校园课堂签到系统</title>
+		<link rel="stylesheet" href="../../css/my.css"
+			  th:href="@{/css/my.css}"/>
+		<link rel="stylesheet" href="../../css/bootstrap.css"
+			  th:href="@{/css/bootstrap.css}"/>
+		<script type="text/javascript" src="../../js/jquery-3.1.1.min.js"
+				th:src="@{/js/jquery-3.1.1.min.js}"></script>
+		<script type="text/javascript" src="../../js/bootstrap.min.js"
+				th:src="@{/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" src="../../js/my.js"
+				th:src="@{/js/my.js}"></script>
+	</head>
+
+	<body>
+		<div class="login-main">
+			<div class="login-title">欢迎使用课堂签到系统</div>
+			<div class="login-content">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#tab1" data-toggle="tab"><font size="4">学生</font></a>
+					</li>
+					<li>
+						<a href="#tab2" data-toggle="tab"><font size="4">教师</font></a>
+					</li>
+					<li>
+						<a href="#tab3" data-toggle="tab"><font size="4">管理员</font></a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab1">
+						<form action="index.html"  method="post">
+							<div class="form-group hide" style="margin-top: 50px;" id="status"><div id="formError" class="alert" style="height: 45px;margin: 0;"></div></div>
+							<div class="form-group" style="margin-top: 80px;" id="first-input">
+								<input type="text" class="form-control" placeholder="请输入学号" style="height: 45px;" name="studentNumber" th:name="studentNumber" id="studentNumber"/>
+							</div>
+							<button type="button" class="btn btn-primary" style="height: 45px; width: 100%; margin-top: 50px;" id="sign"><b>签  到</b></button>
+						</form>
+					</div>
+					<div class="tab-pane" id="tab2">
+						<form>
+							<div class="form-group" style="margin-top:50px;">
+								<input type="text" class="form-control" placeholder="请输入教工号" style="height: 45px;"/>
+							</div>
+							<div class="form-group" style="margin-top:50px;">
+								<input type="password" class="form-control" placeholder="请输入密码" style="height: 45px; margin-top: -20px;"/>
+							</div>
+							<button type="submit" class="btn btn-primary" style="height: 45px; width: 100%; margin-top: 35px;"><b>登 录</b></button>
+						</form>
+					</div>
+					<div class="tab-pane" id="tab3">
+						<form>
+							<div class="form-group" style="margin-top:50px;">
+								<input type="text" class="form-control" placeholder="请输入管理员用户名" style="height: 45px;"/>
+							</div>
+							<div class="form-group" style="margin-top:50px;">
+								<input type="password" class="form-control" placeholder="请输入密码" style="height: 45px;margin-top: -20px;"/>
+							</div>
+							<button type="submit" class="btn btn-primary" style="height: 45px; width: 100%; margin-top: 35px;"><b>登 录</b></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script>
+		$("#sign").click(function() {
+
+					var text = $("#studentNumber").val();
+					var params = "studentNumber="+text;
+					var url="student_sign";
+					$.post(url,params,function(data){
+						var s = "";
+						if(data==-1)
+						{
+							s = "你的积极值得鼓励，现在不在上课时间";
+							$("#formError").addClass("alert-success");
+						}
+						if(data==0)
+						{
+							s = "恭喜你！现在没有课喔";
+							$("#formError").addClass("alert-info");
+						}
+
+						if(data==1)
+						{
+							s = "签到成功！记得下课时回来签退";
+							$("#fromError").addClass("alert-danger");
+						}
+						$("#first-input").css("margin-top","0");
+						$("#formError").text(s);
+						$("#status").removeClass("hide");
+					})
+				}
+		)
+	</script>
+	</body>
+
+</html>
