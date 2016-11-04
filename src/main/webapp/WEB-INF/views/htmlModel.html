@@ -11,8 +11,8 @@
 </head>
 
 <body>
-<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;">
-    <div class="row" th:fragment="commonTop">
+<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;" th:fragment="commonTop">
+    <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-11">
             <h2>考勤及平时成绩管理系统</h2>
@@ -23,8 +23,8 @@
 </div>
 <!-- 头部文件 -->
 <div class="h_pageContent">
-    <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;">
-        <div class="container-fluid" th:fragment="guilderTop">
+    <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;" th:fragment="guilderTop">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
@@ -58,8 +58,8 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="wrapper">
-                <nav class="h_leftMenu">
-                    <ul class="list-group" style="list-style: none;" th:fragment="menuLeft">
+                <nav class="h_leftMenu" th:fragment="menuLeft">
+                    <ul class="list-group" style="list-style: none;">
                         <li class="nav-parent">
                             <a href="javascript:;" class="list-group-item">
                                 <span class="badge">4</span>
@@ -115,8 +115,8 @@
     </div>
 </div>
 <!-- this is content -->
-<div class="h_pageButtom">
-    <label th:fragment="commonBottom">Copyright © 2016 Hathaway. All Rights Reserved.</label>
+<div class="h_pageBottom" th:fragment="commonBottom">
+    <label>Copyright © 2016 Hathaway. All Rights Reserved.</label>
 </div>
 <!-- this is buttom -->
 <script type="text/javascript" src="../js/jquery.js"></script>

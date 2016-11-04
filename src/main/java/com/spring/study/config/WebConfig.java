@@ -16,7 +16,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
  * Created by Administrator on 2016/10/8.
  */
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.spring.study.controller","com.spring.study.config"})
+@ComponentScan(basePackages = {"com.spring.study.controller","com.spring.study.config", "com.spring.study.dao"})
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
     @Bean

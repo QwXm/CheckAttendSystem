@@ -12,18 +12,18 @@
 </head>
 <!-- Lucien 2016-11-4 -->
 <body>
-<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;" th:include="htmlModel :: commonTop"></div>
+<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;" th:substituteby="htmlModel :: commonTop"></div>
 <!-- /头部文件 -->
 <div class="h_pageContent">
     <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;"
-         th:include="htmlModel :: guilderTop">
+         th:substituteby="htmlModel :: guilderTop">
     </nav>
     <!-- /top Guider -->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="wrapper">
-                <nav class="h_leftMenu" th:include="htmlModel :: menuleft"></nav>
+                <nav class="h_leftMenu" th:substituteby="htmlModel :: menuleft"></nav>
                 <div class="h_right-content">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -71,7 +71,7 @@
     </div>
 </div>
 <!-- this is content -->
-<div class="h_pageBottom" th:include="htmlModel :: commonBottom"></div>
+<div class="h_pageBottom" th:substituteby="htmlModel :: commonBottom"></div>
 <!-- this is bottom -->
 <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"
         th:src="@{/js/jquery-3.1.1.min.js}"></script>
