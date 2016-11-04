@@ -37,3 +37,45 @@ body{
 	width: 100%;
 	padding: 0  20px;
 }
+
+.h_pageBottom{
+	width: 100%;
+	height: 100px;
+	background-color: #285e8e;
+	padding-left: 40px;
+	line-height: 100px;
+}
+
+.h_pageContent{
+	width: 100%;
+	min-height: 500px;
+}
+
+.h_pageTop{
+	width: 100%;
+	padding-left: 15px;
+}
+
+.h_wrapper{
+	width: 100%;
+}
+
+.h_leftMenu{
+	float: left;
+	width: 17%;
+}
+
+.h_right-content{
+	float: right;
+	width: 83%;
+	padding-left: 15px;
+}
+
+.h_textContent{
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+

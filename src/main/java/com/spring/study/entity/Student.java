@@ -27,7 +27,7 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"))
     private Set<Teacher> teachers = new HashSet<Teacher>();//教师
     @OneToMany(targetEntity = Sign.class)
-    private Set<Sign> signs;
+    private Set<Sign> signs;    //签到表
 
     public int getId() {
         return id;

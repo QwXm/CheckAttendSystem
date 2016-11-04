@@ -12,6 +12,6 @@ import java.util.List;
  */
 @Repository
 public interface RuleDao extends JpaRepository<Rule,Integer> {
-    @Query("select r from Rule r order by r.id")
+    @Query(value = "select r from Rule r order by r.id")
     List<Rule> findLastResult();
 }
