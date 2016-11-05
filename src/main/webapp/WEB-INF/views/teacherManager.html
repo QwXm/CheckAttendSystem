@@ -38,51 +38,41 @@
                                            autofocus="autofocus" placeholder="请输入课程名称(必填)"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>上课学期</label>
+                                    <label>当前学期</label>
                                     <input type="text" class="form-control"
-                                           placeholder="请输入任课教师(必填)"/>
+                                           placeholder="2016-2017学年第一学期" disabled="disabled"/>
                                 </div>
                                 <div class="form-group">
                                     <label>上课周次</label>
                                     <div class="input-group">
-                                        <select class="form-control">
+                                        <select class="form-control" name="start_week" id="start_week" th:name="start_week">
                                             <option>请选择开始上课周次</option>
-                                            <option value="firstWeek">第一周</option>
-                                            <option value="secondWeek">第二周</option>
-                                            <option value="thirdWeek">第三周</option>
+                                            <!-- 通过jquery添加选项 -->
                                         </select>
                                         <span class="input-group-addon fix-border fix-padding"></span>
-                                        <select class="form-control">
+                                        <select class="form-control" name="end_week" id="end_week" th:name="end_week">
                                             <option>请选择结束上课周次</option>
-                                            <option value="firstWeek">第一周</option>
-                                            <option value="secondWeek">第二周</option>
-                                            <option value="thirdWeek">第三周</option>
+                                            <!-- 通过jquery添加选项 -->
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>上课日期</label>
                                     <div class="input-group">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Monday"/> 周一
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="1">星期一
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Tuesday"/> 周二
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="2">星期二
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Wednesday"/> 周三
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="3">星期三
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Tursday"/> 周四
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="4">星期四
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Friday"/> 周五
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Saturday"/> 周六
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Sunday"/> 周日
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="5">星期五
                                         </label>
                                     </div>
                                 </div>
@@ -91,17 +81,17 @@
                                     <label>上课节次</label>
                                     <!-- 不考虑每周上课时间不一样 -->
                                     <div class="input-group">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="firstClass"/> 第一大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="1">第一大节
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="secondClass"/> 第二大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="2">第二大节
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="thirdClass"/> 第三大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="3">第三大节
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="fourthClass"/> 第四大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="4">第四大节
                                         </label>
                                     </div>
                                 </div>
@@ -131,6 +121,29 @@
         th:src="@{/js/my.js}"></script>
 <script>
     $('.dropdown-toggle').dropdown();
+
+    $(document).ready(function () {
+        var flag = 1;
+        var endFlag = 20;
+        var htmlContent;
+        while (flag <= endFlag){
+            htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
+            flag++;
+        }
+        $("#start_week").append(htmlContent);
+    });
+    $("#start_week").click(function(){
+        $("#end_week").empty();
+        $("#end_week").append("<option>请选择结束上课周次</option>");
+        var flag = $("#start_week").val();
+        var endFlag = 20;
+        var htmlContent;
+        while (flag <= endFlag){
+            htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
+            flag++;
+        }
+        $("#end_week").append(htmlContent);
+    });
 </script>
 </body>
 

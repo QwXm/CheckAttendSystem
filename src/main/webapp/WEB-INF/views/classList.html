@@ -35,32 +35,21 @@
                                 <div class="form-group">
                                     <label>课程列表</label>
                                     <div class="list-group">
-                                        <a href="#" class="list-group-item">
+                                        <div th:each="course : ${courses}">
+                                        <a th:href="@{/CourseManager/showStuListByClass(courseId=${course.id})}" class="list-group-item">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-3" th:text="${course.id}">
                                                     100010
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3" th:text="${course.name}">
                                                     J2EE应用程序设计
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3" th:text="${course.end_week}">
                                                     现代教育中心b302
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#" class="list-group-item">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    100010
-                                                </div>
-                                                <div class="col-md-3">
-                                                    J2EE应用程序设计
-                                                </div>
-                                                <div class="col-md-3">
-                                                    现代教育中心b302
-                                                </div>
-                                            </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -77,10 +66,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1307070101</td>
-                                            <td>张三</td>
-                                            <td>100</td>
+                                        <tr th:each="student : ${students}">
+                                            <td th:text="${student.studentNumber}">1307070101</td>
+                                            <td th:text="${student.name}">张三</td>
+                                            <td th:text="${student.record}">100</td>
                                         </tr>
                                         </tbody>
                                     </table>

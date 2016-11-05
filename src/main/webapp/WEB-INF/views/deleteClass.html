@@ -38,15 +38,16 @@
                                             <th>选中删除</th>
                                             <th>课程编号</th>
                                             <th>课程名称</th>
-                                            <th>任课教师</th>
+                                            <th>结课周次</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" value="checkValue" name="chenckName"/></td>
-                                            <td>100010</td>
-                                            <td>J2EE应用程序设计</td>
-                                            <td>Mr.Zhang</td>
+                                        <tr th:each="course : ${courses}">
+                                            <td><input type="checkbox" th:value="${course.id}" th:name="courseIds"
+                                                name="courseIds" id="courseIds"/></td>
+                                            <td th:text="${course.id}">100010</td>
+                                            <td th:text="${course.name}">J2EE应用程序设计</td>
+                                            <td th:text="${course.end_week}">13</td>
                                         </tr>
                                         </tbody>
                                     </table>

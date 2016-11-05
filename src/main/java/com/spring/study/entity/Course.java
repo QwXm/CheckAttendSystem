@@ -33,14 +33,22 @@ public class Course {
     private Integer term;//学期
     private Integer start_week;//开始周次
     private Integer end_week;//结束周次
+    private Integer weekDate;   //具体周几上课
     private Integer section;//节次
 
-    public Integer getId() {
-        return id;
+    public Integer getWeekDate() {
+        return weekDate;
+    }
+
+    public void setWeekDate(Integer weekDate) {
+        this.weekDate = weekDate;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
