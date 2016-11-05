@@ -14,7 +14,7 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//ID
     private String name;//姓名
-    private String user_name;//用户名
+    private String user;//用户名
     private String password;//密码
     @ManyToMany(targetEntity = Course.class,fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_course",
@@ -45,11 +45,11 @@ public class Teacher {
     }
 
     public String getUser_name() {
-        return user_name;
+        return user;
     }
 
     public void setUser_name(String user_name) {
-        this.user_name = user_name;
+        this.user = user_name;
     }
 
     public String getPassword() {

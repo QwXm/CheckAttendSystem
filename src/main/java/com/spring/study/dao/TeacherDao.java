@@ -11,4 +11,5 @@ import java.util.Set;
  */
 public interface TeacherDao extends JpaRepository<Teacher, Integer> {
     public Set<Course> findCoursesById(Integer id);
+    public Teacher findByUser(String username);
 }

@@ -54,6 +54,8 @@ public class ControllerConfig {
         date.setTime(new Date());
         int current_week = date.get(Calendar.WEEK_OF_YEAR);//一年中今天为第几周
         current_week = current_week - first_week + 1;//现在是开学第几周
+
+        int current_of_week = date.get(Calendar.DAY_OF_WEEK);//获取当前周几
         //判断当前时间是否在某个上课时间段
         boolean flog = false;
         int i;
@@ -74,8 +76,14 @@ public class ControllerConfig {
             Set<Course> courses = student.getCourses();
             Course current_course = null;
             for (Course course:courses ) {
+                boolean IsCurrentDay = false;//如果值为true那么表示这门今天有课
+                String[] weeks = course.getDay_for_week().split(",");
+                for (String s:weeks) {
+                    if(s.equals(current_of_week+""))
+                        IsCurrentDay = true;
+                }
                 //如果在当前周当前节次类有匹配的课程，说明该学生此时有课
-                if (course.getStart_week()<=current_week&&course.getEnd_week()>=current_week&&course.getSection()==(i))
+                if (IsCurrentDay&&course.getStart_week()<=current_week&&course.getEnd_week()>=current_week&&course.getSection()==(i))
                 {
                     //匹配扣分情况。。记录后将所有有关信息保存到签到表中
                     current_course = course;
