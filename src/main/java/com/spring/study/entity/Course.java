@@ -1,6 +1,11 @@
 package com.spring.study.entity;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,10 +24,11 @@ public class Course {
                 joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
                 ,inverseJoinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"))
     private Set<Teacher> teacher = new HashSet<Teacher>();//任课教师
-    @ManyToMany(targetEntity = Teacher.class,fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Teacher.class, fetch = FetchType.EAGER)
     @JoinTable(name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
-            ,inverseJoinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
+            , inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
+    @Cascade(CascadeType.ALL)
     private Set<Student> students;//上这门课的学生
     private Integer term;//学期
     private Integer week;//周次
