@@ -42,7 +42,8 @@
                                 <div class="form-group">
                                     <label>选择课程</label>
                                     <select class="form-control" id="courses" name="courses" th:name="courses">
-                                        <option value="">J2EE课程案例</option>
+                                        <option value="" th:each="name : ${courseNames }"
+                                            th:text="${name }">J2EE课程案例</option>
 
                                     </select>
                                 </div>
