@@ -75,7 +75,7 @@ public class ControllerConfig {
             Course current_course = null;
             for (Course course:courses ) {
                 //如果在当前周当前节次类有匹配的课程，说明该学生此时有课
-                if (course.getWeek()==current_week&&course.getSection()==(i))
+                if (course.getStart_week()<=current_week&&course.getEnd_week()>=current_week&&course.getSection()==(i))
                 {
                     //匹配扣分情况。。记录后将所有有关信息保存到签到表中
                     current_course = course;
