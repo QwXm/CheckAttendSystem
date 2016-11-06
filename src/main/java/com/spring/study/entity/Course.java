@@ -129,4 +129,20 @@ public class Course {
         result = 31 * result + (section != null ? section.hashCode() : 0);
         return result;
     }
+
+    /* 自定义方法--Lucien */
+    public boolean hasWeek(int week){
+        if(!(this.getDay_for_week().equals(""))){
+            return this.getDay_for_week().indexOf(week+"")>-1;
+        } else {
+            return false;
+        }
+    }
+    public boolean hasSection(int section){
+        if (section>-1){
+            return this.getSection()==section;
+        } else {
+            return false;
+        }
+    }
 }

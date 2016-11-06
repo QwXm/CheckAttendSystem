@@ -7,6 +7,7 @@ import com.spring.study.util.CalculateRecord;
 import com.spring.study.util.CourseUtil;
 import com.spring.study.util.DateUtil;
 import com.spring.study.util.StudentUtil;
+import com.sun.javafx.sg.prism.NGShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,7 +76,18 @@ public class CourseController {
     }
 
     @RequestMapping("/editClass")
-    public String editClass(){
+    public String editClass(HttpSession session, Model model){
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
+        Iterator<Course> iterator = teacher.getCourses().iterator();
+        List<Course> courses = new ArrayList<>();
+        while (iterator.hasNext()){
+            Course course = iterator.next();
+            courses.add(course);
+        }
+        if (courses.size()>0){
+            model.addAttribute("editCourse", courses.get(0));
+        }
+        model.addAttribute("courses",courses);
         return "editClass";
     }
 
@@ -156,17 +168,18 @@ public class CourseController {
 
     /* -------------业务操作---------------- */
 
-    @RequestMapping("/addOrUpdateCourse")
-    @ResponseBody
-    public String addOrUpdateCourse(Course course, Model model, @RequestParam("weekDate") String weekDate){
+    @RequestMapping("/addCourse")
+    public String addCourse(Course course, Model model, @RequestParam("weekDate") String weekDate,
+                            HttpSession session){
         System.out.println("添加课程"+course.getName());
         System.out.println(weekDate);
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
         course.setDay_for_week(weekDate);
-        if(courseDao.save(course) != null){
-            return "添加课程成功！！！";
-        } else {
-            return "添加课程失败，请重新添加...";
-        }
+        course.setStudents(new HashSet<Student>());
+        teacher.getCourses().add(course);
+        courseDao.save(course);
+        teacherDao.saveAndFlush(teacher);
+        return "redirect:/CourseManager/classList";
     }
 
     @RequestMapping("/showStuListByClass")
@@ -229,11 +242,44 @@ public class CourseController {
     }
 
     @RequestMapping("/updateCourse")
-    public String updateCourse(Model model, Course course){
+    public String updateCourse(Model model, Course course, HttpSession session){
 
-        /* 保存更新 */
-        /* 没有更新操作，应该需要自定义 */
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
+        Course oldCourse = new Course();
+        Iterator<Course> iterator = teacher.getCourses().iterator();
+        while (iterator.hasNext()){
+            Course c = iterator.next();
+            System.out.println(course.getId()+"asfkha");
+            if (c.getId()==course.getId()){
+                oldCourse = c;
+            }
+        }
+        course.setStudents(oldCourse.getStudents());
+        course.setTeacher(oldCourse.getTeacher());
+        teacher.getCourses().remove(oldCourse);
+        teacher.getCourses().add(course);
         courseDao.saveAndFlush(course);
+        teacherDao.saveAndFlush(teacher);
         return "redirect:/CourseManager/classList";
+    }
+
+    @RequestMapping("/editSelectCourse")
+    public String editSelectCourse(Model model, @RequestParam("courseId") Integer id,
+        HttpSession session){
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
+        Iterator<Course> iterator = teacher.getCourses().iterator();
+        List<Course> courses = new ArrayList<>();
+        Course editCourse = new Course();
+        while (iterator.hasNext()){
+            Course course = iterator.next();
+            if (course.getId() == id) {
+                System.out.println(id);
+                editCourse = course;
+            }
+            courses.add(course);
+        }
+        model.addAttribute("editCourse", editCourse);
+        model.addAttribute("courses", courses);
+        return "editClass";
     }
 }
