@@ -47,4 +47,12 @@ public class TeacherController {
     public String TeacherAddPage(){
         return "addteacher";
     }
+    @PostMapping("/add")
+    @ResponseBody
+    public String add(Teacher teacher){
+        String status = null;
+        Teacher teach = teacherDao.findByUser(teacher.)
+
+        return status;
+    }
 }
