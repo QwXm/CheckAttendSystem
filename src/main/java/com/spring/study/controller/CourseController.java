@@ -7,6 +7,7 @@ import com.spring.study.entity.Sign;
 import com.spring.study.entity.Student;
 import com.spring.study.entity.Teacher;
 import com.spring.study.util.CalculateRecord;
+import net.sf.json.JSONArray;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class CourseController {
 
     @RequestMapping("/teacherManager")
     public String teacherManager(){
+        //添加学生
         return "teacherManager";
     }
 
@@ -48,7 +50,10 @@ public class CourseController {
 
         /* 获取当前登录的教师 */
         Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
-        Iterator<Course> iterator1 = teacher.getCourses().iterator();
+        Iterator<Course> iterator1 = null;
+        if(teacher != null){
+            iterator1 = teacher.getCourses().iterator();
+        }
         while(iterator1.hasNext()){
             courses.add(iterator1.next());
         }
@@ -133,7 +138,7 @@ public class CourseController {
                 students.add(student);
             }
         }
-
+        /* 向前台界面设计值 */
         model.addAttribute("courses", courses);
         model.addAttribute("students",students);
         return "classList";
@@ -149,6 +154,7 @@ public class CourseController {
     @RequestMapping("/updateCourse")
     public String updateCourse(Model model, Course course){
 
+        /* 保存更新 */
         /* 没有更新操作，应该需要自定义 */
         courseDao.save(course);
         return "forword:/CourseManager/classList";
@@ -156,9 +162,20 @@ public class CourseController {
 
     @RequestMapping("/editCourseById")
     @ResponseBody
-    public String editCourseById(){
+    public String editCourseById(@RequestParam("courseId") Integer courseId,
+                                 HttpSession session){
 
-
-        return "";
+        List<Course> courses = (List<Course>) session.getAttribute("courses");
+        Course cur_course = new Course();
+        for (Course course : courses) {
+            if (course.getId() == courseId){
+                cur_course = course;
+                break;
+            }
+        }
+        List<Course> list = new ArrayList<>();
+        list.add(cur_course);
+        JSONArray jsonArray = JSONArray.fromObject(list);    //将List集合转化为JSON对象
+        return "jsonArray";
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by Administrator on 2016/11/5.
  */
@@ -18,7 +20,8 @@ public class TeacherController {
     private TeacherDao teacherDao;
     @ResponseBody
     @RequestMapping(value = "/teacher_login",method = RequestMethod.POST)
-    public String teacher_Login(@RequestParam("username") String username, @RequestParam("password") String password)
+    public String teacher_Login(@RequestParam("username") String username,
+    @RequestParam("password") String password, HttpSession session)
     {
         System.out.println(password);
         System.out.println(username);
@@ -29,14 +32,17 @@ public class TeacherController {
             if(teacher.getPassword().equals(password))
             {
                 status = "1";
+                session.setAttribute("cur_teacher", teacher);
             }
             else
             {
+                session.setAttribute("cur_teacher", null);
                 status = "0";
             }
         }
         else
         {
+            session.setAttribute("cur_teacher", null);
             status = "-1";
         }
         System.out.println(status);

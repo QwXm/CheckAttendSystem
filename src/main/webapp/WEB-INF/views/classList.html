@@ -13,7 +13,8 @@
 </head>
 <!-- Licien 2016-11-4 -->
 <body>
-<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;" th:substituteby="htmlModel :: commonTop"></div>
+<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;"
+     th:substituteby="htmlModel :: commonTop"></div>
 <!-- 头部文件 -->
 <div class="h_pageContent">
     <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;"
@@ -31,12 +32,12 @@
                             <h3 class="panel-title">课程信息管理</h3>
                         </div>
                         <div class="panel-body paddingbuttom40px">
-                            <form role="form" id="addClassForm">
-                                <div class="form-group">
-                                    <label>课程列表</label>
-                                    <div class="list-group">
-                                        <div th:each="course : ${courses}">
-                                        <a th:href="@{/CourseManager/showStuListByClass(courseId=${course.id})}" class="list-group-item">
+                            <div class="form-group">
+                                <label>课程列表</label>
+                                <div class="list-group">
+                                    <div th:each="course : ${courses}">
+                                        <a th:href="@{/CourseManager/showStuListByClass(courseId=${course.id})}"
+                                           class="list-group-item">
                                             <div class="row">
                                                 <div class="col-md-3" th:text="${course.id}">
                                                     100010
@@ -49,32 +50,31 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <hr/>
-                                </div>
-                                <div class="form-group">
-                                    <label>本课程学生列表</label>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th class="width150px">学号</th>
-                                            <th class="width150px">姓名</th>
-                                            <th>平时成绩</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="student : ${students}">
-                                            <td th:text="${student.studentNumber}">1307070101</td>
-                                            <td th:text="${student.name}">张三</td>
-                                            <td th:text="${student.record}">100</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="form-group">
+                                <hr/>
+                            </div>
+                            <div class="form-group">
+                                <label>本课程学生列表</label>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="width150px">学号</th>
+                                        <th class="width150px">姓名</th>
+                                        <th>平时成绩</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="student : ${students}">
+                                        <td th:text="${student.studentNumber}">1307070101</td>
+                                        <td th:text="${student.name}">张三</td>
+                                        <td th:text="${student.record}">100</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!-- /this is panel -->
