@@ -1,4 +1,3 @@
-
 /*管理员登录前台数据校验*/
 $(document).ready(function () {
 
@@ -26,15 +25,12 @@ $(document).ready(function () {
         });
     });
 
-});
-/*教师添加前台数据校验*/
-$(document).ready(function () {
-    $("#name").bind("focusout",function () {
+
+    $("#user").bind("focusout",function () {
         $("#password").val($("#work_num").val());
     })
 
     $("#addButton").bind("click", function () {
-
         if($("#work_num").val()=='') {
             alert("教工号不能为空！！！");
             return false;
@@ -45,45 +41,20 @@ $(document).ready(function () {
             alert("密码不能为空！！！");
             return false;
         }
-
-    });
-});
-$(document).ready(function () {
-    //获取点击事件
-    $("#addButton").bind("click",function () {
         /*访问路径*/
         var url = "add";
         /*访问参数*/
         var params = $("#addTeacherForm").serialize();
         $.post(url,params,function(data){
-           if(data==1){
-                alert("添加成功！！！");
-           }else if(data==0) {
-                alert("添加失败！！！");
-           }
+            if(data==1){
+                alert("12");
+            }else if(data==0) {
+                alert("用户名已存在！！！");
+            }
         });
     });
+
+
 });
 
 
-//------------------------
-$("#start_week").click(function(){
-    var htmlContent;
-    for(var flag=1;flag<=20;flag++){
-        htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
-    }
-    $("#start_week").append(htmlContent);
-    $("#end_week").empty();
-    $("#end_week").append("<option>请选择结束上课周次</option>");
-});
-
-$("#end_week").click(function(){
-    var flag = $("#start_week").val();
-    var endFlag = 20;
-    var htmlContent;
-    while (flag <= endFlag){
-        htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
-        flag++;
-    }
-    $("#end_week").append(htmlContent);
-});
