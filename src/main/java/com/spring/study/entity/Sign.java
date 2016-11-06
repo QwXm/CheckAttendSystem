@@ -23,11 +23,11 @@ public class Sign {
     private Teacher teacher;//教师
     @ManyToOne(targetEntity = Course.class)
     @JoinColumn(name = "course_id",referencedColumnName = "id",nullable = false)
-    private Course course;//课程
+    private Course course;        //课程
     @Temporal(TemporalType.DATE)
-    private Date date;//日期
-    private Integer deduction;//扣分情况
-    private String des_deduction;//扣分描述
+    private Date date;            //日期
+    private Integer deduction;    //扣分情况
+    private String des_deduction; //扣分描述
     public Integer getId() {
         return id;
     }

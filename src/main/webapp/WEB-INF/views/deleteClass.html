@@ -1,8 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
-
 <head>
     <meta charset="UTF-8"/>
     <title>删除课程信息</title>
@@ -13,102 +11,18 @@
 </head>
 <!-- Licien 2016-11-4 -->
 <body>
-<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-11">
-            <h2>考勤及平时成绩管理系统</h2>
-            <label>&nbsp;&nbsp;This is Hathaway´s back-stage management system.</label><br/>
-            <label>&nbsp;&nbsp;Welcome ${param.tag} !</label>
-        </div>
-    </div>
-</div>
+<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;" th:substituteby="htmlModel :: commonTop"></div>
 <!-- 头部文件 -->
 <div class="h_pageContent">
-    <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="javascript:;"><label>&nbsp;考勤管理系统</label></a>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.nav-collapse -->
-                </div>
-                <div class="col-md-2">
-							<span>
-								<a class="navbar-brand" href="javascript:;" style="font-size: 14px;">[修改密码]</a>
-							</span>
-                    <span>
-								<a class="navbar-brand" href="javascript:;" style="font-size: 14px;">[注销]</a>
-							</span>
-                </div>
-            </div>
-        </div>
-        <!-- /.container-fluid -->
+    <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;"
+         th:substituteby="htmlModel :: guilderTop">
     </nav>
     <!-- /top Guider -->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="wrapper">
-                <nav class="h_leftMenu">
-                    <ul class="list-group" style="list-style: none;">
-                        <li class="nav-parent">
-                            <a href="javascript:;" class="list-group-item">
-                                <span class="badge">4</span>
-                                <font class="fontsize">课程管理</font>
-                            </a>
-                            <ul class="list-group" style="list-style: none; margin-bottom: 0px;">
-                                <li>
-                                    <a href="javascript:;" class="list-group-item">添加课程信息</a>
-                                </li>
-                                <!-- /在添加学生的过程中选择上课时间，选项通过课程时间配置中设定 -->
-                                <li>
-                                    <a href="jav ascript:;" class="list-group-item">删除课程信息</a>
-                                </li>
-                                <li>
-                                    <a href="jav ascript:;" class="list-group-item">编辑课程信息</a>
-                                </li>
-                                <li>
-                                    <a href="jav ascript:;" class="list-group-item">查看学生信息</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-parent">
-                            <a href="javascript:;" class="list-group-item">
-                                <span class="badge">2</span>
-                                <font class="fontsize">学生管理</font>
-                            </a>
-                            <ul class="list-group" style="list-style: none; margin-bottom: 0px;">
-                                <li>
-                                    <a href="javascript:;" class="list-group-item">添加学生</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" class="list-group-item">批量添加学生</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="list-group-item">
-                                <font class="fontsize">规则配置</font>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="list-group-item" style="border-bottom: 1px solid #DDDDDD;">
-                                <font class="fontsize">签到学生列表</font>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <nav class="h_leftMenu" th:substituteby="htmlModel :: menuLeft"></nav>
                 <div class="h_right-content">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -124,27 +38,16 @@
                                             <th>选中删除</th>
                                             <th>课程编号</th>
                                             <th>课程名称</th>
-                                            <th>任课教师</th>
+                                            <th>结课周次</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" value="checkValue" name="chenckName"/></td>
-                                            <td>100010</td>
-                                            <td>J2EE应用程序设计</td>
-                                            <td>Mr.Zhang</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value="checkValue" name="chenckName"/></td>
-                                            <td>100010</td>
-                                            <td>J2EE应用程序设计</td>
-                                            <td>Mr.Zhang</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value="checkValue" name="chenckName"/></td>
-                                            <td>100010</td>
-                                            <td>J2EE应用程序设计</td>
-                                            <td>Mr.Zhang</td>
+                                        <tr th:each="course : ${courses}">
+                                            <td><input type="checkbox" th:value="${course.id}" th:name="courseIds"
+                                                name="courseIds" id="courseIds"/></td>
+                                            <td th:text="${course.id}">100010</td>
+                                            <td th:text="${course.name}">J2EE应用程序设计</td>
+                                            <td th:text="${course.end_week}">13</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -165,9 +68,7 @@
     </div>
 </div>
 <!-- this is content -->
-<div class="h_pageButtom">
-    <label>Copyright © 2016 Hathaway. All Rights Reserved.</label>
-</div>
+<div class="h_pageBottom" th:substituteby="htmlModel :: commonBottom"></div>
 <!-- this is buttom -->
 <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"
         th:src="@{/js/jquery-3.1.1.min.js}"></script>

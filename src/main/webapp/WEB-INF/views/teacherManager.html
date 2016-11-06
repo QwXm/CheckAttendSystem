@@ -13,102 +13,18 @@
 </head>
 <!-- Licien 2016-11-4 -->
 <body>
-<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-11">
-            <h2>考勤及平时成绩管理系统</h2>
-            <label>&nbsp;&nbsp;This is Hathaway´s back-stage management system.</label><br/>
-            <label>&nbsp;&nbsp;Welcome ${param.tag} !</label>
-        </div>
-    </div>
-</div>
+<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;" th:substituteby="htmlModel :: commonTop"></div>
 <!-- 头部文件 -->
 <div class="h_pageContent">
-    <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="javascript:;"><label>&nbsp;考勤管理系统</label></a>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.nav-collapse -->
-                </div>
-                <div class="col-md-2">
-							<span>
-								<a class="navbar-brand" href="javascript:;" style="font-size: 14px;">[修改密码]</a>
-							</span>
-                    <span>
-								<a class="navbar-brand" href="javascript:;" style="font-size: 14px;">[注销]</a>
-							</span>
-                </div>
-            </div>
-        </div>
-        <!-- /.container-fluid -->
+    <nav id="navbar-example" class="navbar" role="navigation" style="border-radius: inherit;"
+         th:substituteby="htmlModel :: guilderTop">
     </nav>
     <!-- /top Guider -->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="wrapper">
-                <nav class="h_leftMenu">
-                    <ul class="list-group" style="list-style: none;">
-                        <li class="nav-parent">
-                            <a href="javascript:;" class="list-group-item">
-                                <span class="badge">4</span>
-                                <font class="fontsize">课程管理</font>
-                            </a>
-                            <ul class="list-group" style="list-style: none; margin-bottom: 0px;">
-                                <li>
-                                    <a href="javascript:;" class="list-group-item">添加课程信息</a>
-                                </li>
-                                <!-- /在添加学生的过程中选择上课时间，选项通过课程时间配置中设定 -->
-                                <li>
-                                    <a href="jav ascript:;" class="list-group-item">删除课程信息</a>
-                                </li>
-                                <li>
-                                    <a href="jav ascript:;" class="list-group-item">编辑课程信息</a>
-                                </li>
-                                <li>
-                                    <a href="jav ascript:;" class="list-group-item">查看学生信息</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-parent">
-                            <a href="javascript:;" class="list-group-item">
-                                <span class="badge">2</span>
-                                <font class="fontsize">学生管理</font>
-                            </a>
-                            <ul class="list-group" style="list-style: none; margin-bottom: 0px;">
-                                <li>
-                                    <a href="javascript:;" class="list-group-item">添加学生</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" class="list-group-item">批量添加学生</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="list-group-item">
-                                <font class="fontsize">规则配置</font>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="list-group-item" style="border-bottom: 1px solid #DDDDDD;">
-                                <font class="fontsize">签到学生列表</font>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <nav class="h_leftMenu" th:substituteby="htmlModel :: menuLeft"></nav>
                 <div class="h_right-content">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -117,75 +33,65 @@
                         <div class="panel-body paddingbuttom40px">
                             <form role="form" id="addClassForm">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">课程名称</label>
-                                    <input autofocus="autofocus" type="text" class="form-control"
-                                           id="exampleInputEmail1" placeholder="请输入课程名称(必填)">
+                                    <label>课程名称</label>
+                                    <input type="text" class="form-control" name="name" th:name="name" id="name"
+                                           autofocus="autofocus" placeholder="请输入课程名称(必填)"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">任课教师</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1"
-                                           placeholder="请输入任课教师(必填)">
+                                    <label>当前学期</label>
+                                    <input type="text" class="form-control"
+                                           placeholder="2016-2017学年第一学期" disabled="disabled"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">上课周次</label>
+                                    <label>上课周次</label>
                                     <div class="input-group">
-                                        <select class="form-control">
+                                        <select class="form-control" name="start_week" id="start_week" th:name="start_week">
                                             <option>请选择开始上课周次</option>
-                                            <option value="firstWeek">第一周</option>
-                                            <option value="secondWeek">第二周</option>
-                                            <option value="thirdWeek">第三周</option>
+                                            <!-- 通过jquery添加选项 -->
                                         </select>
                                         <span class="input-group-addon fix-border fix-padding"></span>
-                                        <select class="form-control">
+                                        <select class="form-control" name="end_week" id="end_week" th:name="end_week">
                                             <option>请选择结束上课周次</option>
-                                            <option value="firstWeek">第一周</option>
-                                            <option value="secondWeek">第二周</option>
-                                            <option value="thirdWeek">第三周</option>
+                                            <!-- 通过jquery添加选项 -->
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">上课日期</label>
+                                    <label>上课日期</label>
                                     <div class="input-group">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Monday"> 周一
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="1">星期一
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Tuesday"> 周二
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="2">星期二
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Wednesday"> 周三
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="3">星期三
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Tursday"> 周四
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="4">星期四
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Friday"> 周五
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Saturday"> 周六
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Sunday"> 周日
+                                        <label class="radio-inline">
+                                            <input type="radio" name="weekDate" value="5">星期五
                                         </label>
                                     </div>
                                 </div>
                                 <!-- /每周上课的日期 -->
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">上课节次</label>
+                                    <label>上课节次</label>
                                     <!-- 不考虑每周上课时间不一样 -->
                                     <div class="input-group">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="firstClass"> 第一大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="1">第一大节
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="secondClass"> 第二大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="2">第二大节
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="thirdClass"> 第三大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="3">第三大节
                                         </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="fourthClass"> 第四大节
+                                        <label class="radio-inline">
+                                            <input type="radio" name="section" value="4">第四大节
                                         </label>
                                     </div>
                                 </div>
@@ -205,9 +111,7 @@
     </div>
 </div>
 <!-- this is content -->
-<div class="h_pageButtom">
-    <label>Copyright © 2016 Hathaway. All Rights Reserved.</label>
-</div>
+<div class="h_pageBottom" th:substituteby="htmlModel :: commonBottom"></div>
 <!-- this is buttom -->
 <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"
         th:src="@{/js/jquery-3.1.1.min.js}"></script>
@@ -217,6 +121,29 @@
         th:src="@{/js/my.js}"></script>
 <script>
     $('.dropdown-toggle').dropdown();
+
+    $(document).ready(function () {
+        var flag = 1;
+        var endFlag = 20;
+        var htmlContent;
+        while (flag <= endFlag){
+            htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
+            flag++;
+        }
+        $("#start_week").append(htmlContent);
+    });
+    $("#start_week").click(function(){
+        $("#end_week").empty();
+        $("#end_week").append("<option>请选择结束上课周次</option>");
+        var flag = $("#start_week").val();
+        var endFlag = 20;
+        var htmlContent;
+        while (flag <= endFlag){
+            htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
+            flag++;
+        }
+        $("#end_week").append(htmlContent);
+    });
 </script>
 </body>
 

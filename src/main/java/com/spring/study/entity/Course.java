@@ -1,6 +1,11 @@
 package com.spring.study.entity;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,13 +24,15 @@ public class Course {
                 joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
                 ,inverseJoinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"))
     private Set<Teacher> teacher = new HashSet<Teacher>();//任课教师
-    @ManyToMany(targetEntity = Teacher.class,fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Teacher.class, fetch = FetchType.EAGER)
     @JoinTable(name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
-            ,inverseJoinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
+            , inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
+    @Cascade(CascadeType.ALL)
     private Set<Student> students;//上这门课的学生
     private Integer term;//学期
-    private Integer week;//周次
+    private Integer start_week;//开始周次
+    private Integer end_week;//结束周次
     private Integer section;//节次
 
     public Integer getId() {
@@ -60,12 +67,20 @@ public class Course {
         this.term = term;
     }
 
-    public Integer getWeek() {
-        return week;
+    public Integer getStart_week() {
+        return start_week;
     }
 
-    public void setWeek(Integer week) {
-        this.week = week;
+    public void setStart_week(Integer start_week) {
+        this.start_week = start_week;
+    }
+
+    public Integer getEnd_week() {
+        return end_week;
+    }
+
+    public void setEnd_week(Integer end_week) {
+        this.end_week = end_week;
     }
 
     public Integer getSection() {
@@ -85,36 +100,25 @@ public class Course {
     }
 
     @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", teacher=" + teacher +
-                ", students=" + students +
-                ", term=" + term +
-                ", week=" + week +
-                ", section=" + section +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Course course = (Course) o;
 
-        if (!name.equals(course.name)) return false;
-        if (!week.equals(course.week)) return false;
-        return section.equals(course.section);
+        if (name != null ? !name.equals(course.name) : course.name != null) return false;
+        if (start_week != null ? !start_week.equals(course.start_week) : course.start_week != null) return false;
+        if (end_week != null ? !end_week.equals(course.end_week) : course.end_week != null) return false;
+        return section != null ? section.equals(course.section) : course.section == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + week.hashCode();
-        result = 31 * result + section.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (start_week != null ? start_week.hashCode() : 0);
+        result = 31 * result + (end_week != null ? end_week.hashCode() : 0);
+        result = 31 * result + (section != null ? section.hashCode() : 0);
         return result;
     }
 }

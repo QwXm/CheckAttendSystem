@@ -45,14 +45,15 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="tab2">
-						<form>
-							<div class="form-group" style="margin-top:50px;">
-								<input type="text" class="form-control" placeholder="请输入教工号" style="height: 45px;"/>
+						<form id="from2">
+							<div class="form-group hide" style="margin-top: 10px;" id="teacher_status"><div id="teacher_formError" class="alert" style="height: 45px;margin: 0;"></div></div>
+							<div class="form-group" style="margin-top:50px;" id="second_input">
+								<input type="text" class="form-control" placeholder="请输入教工号" style="height: 45px;" id="t_user" th:name="username"/>
 							</div>
 							<div class="form-group" style="margin-top:50px;">
-								<input type="password" class="form-control" placeholder="请输入密码" style="height: 45px; margin-top: -20px;"/>
+								<input type="password" class="form-control" placeholder="请输入密码" style="height: 45px; margin-top: -20px;" id="t_password" th:name="password"/>
 							</div>
-							<button type="submit" class="btn btn-primary" style="height: 45px; width: 100%; margin-top: 35px;"><b>登 录</b></button>
+							<button type="button" class="btn btn-primary" style="height: 45px; width: 100%; margin-top: 35px;" id="t_login"><b>登 录</b></button>
 						</form>
 					</div>
 
@@ -99,6 +100,33 @@
 						$("#first-input").css("margin-top","0");
 						$("#formError").text(s);
 						$("#status").removeClass("hide");
+					})
+				}
+		)
+
+		$("#t_login").click(function() {
+					var params = $("#from2").serialize();
+					var url="teacher_login";
+					$.post(url,params,function(data){
+						var s = "";
+						if(data==-1)
+						{
+							s = "该账户不存在！";
+							$("#teacher_formError").addClass("alert-danger");
+						}
+						if(data==0)
+						{
+							s = "密码错误！";
+							$("#teacher_formError").addClass("alert-danger");
+						}
+
+						if(data==1)
+						{
+							location.href="";
+						}
+						$("#second_input").css("margin-top","-10px");
+						$("#teacher_formError").text(s);
+						$("#teacher_status").removeClass("hide");
 					})
 				}
 		)

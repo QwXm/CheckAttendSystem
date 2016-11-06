@@ -1,5 +1,7 @@
 package com.spring.study.entity;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +30,17 @@ public class Student {
     private Set<Teacher> teachers = new HashSet<Teacher>();//教师
     @OneToMany(targetEntity = Sign.class)
     private Set<Sign> signs;    //签到表
+    @Transient
+    private Integer record;     //该学生的平时成绩，不存放到数据库中
+
+
+    public Integer getRecord() {
+        return record;
+    }
+
+    public void setRecord(Integer record) {
+        this.record = record;
+    }
 
     public int getId() {
         return id;
