@@ -53,12 +53,20 @@ public class Teacher {
         this.name = name;
     }
 
-    public String getUser_name() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser_name(String user_name) {
-        this.user = user_name;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 
     public String getPassword() {

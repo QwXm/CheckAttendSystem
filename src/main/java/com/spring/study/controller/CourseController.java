@@ -81,8 +81,8 @@ public class CourseController {
     }
 
     @RequestMapping("/deleteClass")
-    public String deleteClass(Model model){
-        Teacher teacher = new Teacher();
+    public String deleteClass(Model model,HttpSession session){
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
         Iterator<Course> iterator = teacher.getCourses().iterator();
         List<Course> courses = new ArrayList<>();
         while (iterator.hasNext()){
