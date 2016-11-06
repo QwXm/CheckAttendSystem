@@ -1,7 +1,9 @@
 package com.spring.study.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,13 +15,11 @@ public class Rule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ElementCollection(targetClass = Integer.class,fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Rules.class,fetch = FetchType.EAGER)
     @CollectionTable(name = "rules_info",
     joinColumns = @JoinColumn(name = "rule_id",nullable = false))
-    @MapKeyColumn(name = "late_time")
-    @MapKeyClass(Integer.class)
-    @Column(name = "value")
-    private Map<Integer,Integer> rules = new HashMap<Integer,Integer>();
+    @OrderColumn(name = "list_order")
+    private List<Rules> rules = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -29,11 +29,11 @@ public class Rule {
         this.id = id;
     }
 
-    public Map<Integer, Integer> getRules() {
+    public List<Rules> getRules() {
         return rules;
     }
 
-    public void setRules(Map<Integer, Integer> rules) {
+    public void setRules(List<Rules> rules) {
         this.rules = rules;
     }
 }

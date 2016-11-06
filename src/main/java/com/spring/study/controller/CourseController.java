@@ -2,12 +2,12 @@ package com.spring.study.controller;
 
 import com.spring.study.dao.CourseDao;
 import com.spring.study.dao.SignDao;
-import com.spring.study.entity.Course;
-import com.spring.study.entity.Sign;
-import com.spring.study.entity.Student;
-import com.spring.study.entity.Teacher;
+import com.spring.study.dao.TimeManagerDao;
+import com.spring.study.entity.*;
 import com.spring.study.util.CalculateRecord;
 
+import com.spring.study.util.CourseUtil;
+import com.spring.study.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Administrator on 2016/11/5.
@@ -32,7 +29,8 @@ public class CourseController {
     private CourseDao courseDao;
     @Autowired
     private SignDao signDao;
-
+    @Autowired
+    private TimeManagerDao timeManagerDao;
 
     @RequestMapping("/teacherManager")
     public String teacherManager(){
@@ -68,7 +66,6 @@ public class CourseController {
                 students.add(student);
             }
         }
-
         model.addAttribute("courses", courses);
         model.addAttribute("students",students);
         return "classList";
@@ -93,7 +90,64 @@ public class CourseController {
 
     /* 查看当前课程学生签到情况 */
     @RequestMapping("attendStuList")
-    public String attendStuList(){
+    public String attendStuList(Model model, HttpSession session){
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
+        /* 获取当前时间是星期几，第几节课，从教师的课程数据中获取相应的课程 */
+        Calendar calendar = Calendar.getInstance();
+        TimeManager timeManager = timeManagerDao.findLastResult().get(0);
+        Integer curWeekday = calendar.get(Calendar.DAY_OF_WEEK);  //获取星期几
+        boolean flog = false;
+        int i;
+        List<Time> times = timeManager.getTimes();
+        for (i=0;i<times.size();i++) {//测试为第几节课
+            Time time = times.get(i);
+            if(DateUtil.compareTime(new Date(),time.getStart_time())&&!DateUtil.compareTime(new Date(),time.getEnd_time()))
+            {
+                flog = true;
+                break;
+                /* 测试到匹配即终止循环，此时的即当前匹配到的节次 */
+            }
+        }
+        if(flog){
+            //根据周几，节次获取课程
+            Course curCourse = null;
+            Iterator<Course> iterator = teacher.getCourses().iterator();
+            while(iterator.hasNext()){
+                Course course = iterator.next();
+                if (course.getDay_for_week().lastIndexOf(curWeekday+"")>=0 &&
+                        course.getSection() == i){
+                    System.out.println(course);
+                    curCourse = course;
+                }
+            }
+            if(curCourse != null){
+                //根据课程，教师，日期获取Sign，当签到日期等于今天日期
+                System.out.println(curCourse.getId());
+                System.out.println(teacher.getId());
+                List<Sign> signs = signDao.findAllByCourse_idAndTeacher_id(curCourse.getId(), teacher.getId());
+                System.out.println(signs);
+                List<Student> students = new ArrayList<>();
+                Integer signStuNumber = 0;
+                for (Sign s : signs) {
+                    /* 一天中一节课只上一次，所以只签到一次，只需要获取当天该教师该课程的签到情况 */
+                    System.out.println(s.getDate().getDate());
+                    System.out.println(calendar.get(Calendar.DATE));
+                    if (s.getDate().getDate() == calendar.get(Calendar.DATE)){
+                        students.add(s.getStudent());
+                        signStuNumber++;
+                        System.out.println(signStuNumber);
+                    }
+                }
+                model.addAttribute("courseName", curCourse.getName());
+                model.addAttribute("signStuNumber", signStuNumber);
+                model.addAttribute("signStuList", students);
+            } else{
+                model.addAttribute("courseName","您当前没有课");
+            }
+        } else {
+            model.addAttribute("courseName","现在是下课时间");
+        }
+        /* 将课程名称注入到Model中，名称为：courseName */
         return "attendStuList";
     }
 
@@ -146,10 +200,23 @@ public class CourseController {
     }
 
     @RequestMapping("/deleteCourse")
-    public String deleteCourse(@RequestParam("courseIds") List<Integer> list){
+    public String deleteCourse(@RequestParam("courseIds") String courseIds, HttpSession session){
         /* 删除id属于list的所有Course */
-        //courseDao.deleteCourseIdIn(list);
-        return "forword:/CourseManager/deleteClass";
+        List<Course> list = new ArrayList<>();
+        Iterator<Course> iterator = ((Teacher)session.getAttribute("cur_teacher")).getCourses().iterator();
+        while(iterator.hasNext()){
+            Course course = iterator.next();
+            if (courseIds.indexOf(course.getId().toString()) >= 0){
+                list.add(course);
+            }
+        }
+        System.out.println(list);
+        /* 级联删除的问题，如何保证不删除关联的对象 */
+        courseDao.deleteInBatch(list);
+        for (Course course : list) {
+            CourseUtil.deleteCourseFormSession(session, course);
+        }
+        return "redirect:/CourseManager/classList";
     }
 
     @RequestMapping("/updateCourse")
@@ -158,14 +225,6 @@ public class CourseController {
         /* 保存更新 */
         /* 没有更新操作，应该需要自定义 */
         courseDao.saveAndFlush(course);
-        return "forword:/CourseManager/classList";
-    }
-
-    @RequestMapping("/editCourseById")
-    @ResponseBody
-    public String editCourseById(@RequestParam("courseId") Integer courseId,
-                                 HttpSession session){
-
-        return "jsonArray";
+        return "redirect:/CourseManager/classList";
     }
 }

@@ -32,10 +32,10 @@
                         <div class="panel-body paddingbuttom40px">
                             <form role="form" id="addClassForm">
                                 <div class="form-group">
-                                    <label>当前课程：</label><label>J2ee</label>
+                                    <label>当前课程：</label><label th:text="${courseName }">J2ee</label>
                                 </div>
                                 <div class="form-group">
-                                    <label>当前签到总人数：</label><label>33</label>
+                                    <label>当前签到总人数：</label><label th:text="${signStuNumber }">33</label>
                                 </div>
                                 <div class="form-group">
                                     <hr/>
@@ -51,9 +51,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1307070101</td>
-                                            <td>张三</td>
+                                        <tr th:each="student : ${signStuList }">
+                                            <td th:text="${student.studentNumber }">1307070101</td>
+                                            <td th:text="${student.name }">张三</td>
                                             <td>已签到</td>
                                         </tr>
                                         </tbody>
