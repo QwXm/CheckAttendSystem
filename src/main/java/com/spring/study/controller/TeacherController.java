@@ -20,8 +20,6 @@ public class TeacherController {
     @RequestMapping(value = "/teacher_login",method = RequestMethod.POST)
     public String teacher_Login(@RequestParam("username") String username, @RequestParam("password") String password)
     {
-        System.out.println(password);
-        System.out.println(username);
         String status = null;
         Teacher teacher = teacherDao.findByUser(username);
         if(teacher!=null)
@@ -39,7 +37,6 @@ public class TeacherController {
         {
             status = "-1";
         }
-        System.out.println(status);
         return status;
     }
 }
