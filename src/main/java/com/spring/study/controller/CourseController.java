@@ -8,7 +8,6 @@ import com.spring.study.entity.Student;
 import com.spring.study.entity.Teacher;
 import com.spring.study.util.CalculateRecord;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -149,7 +148,7 @@ public class CourseController {
     @RequestMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseIds") List<Integer> list){
         /* 删除id属于list的所有Course */
-       // courseDao.deleteCourseIdIn(list);
+        //courseDao.deleteCourseIdIn(list);
         return "forword:/CourseManager/deleteClass";
     }
 
@@ -166,6 +165,7 @@ public class CourseController {
     @ResponseBody
     public String editCourseById(@RequestParam("courseId") Integer courseId,
                                  HttpSession session){
+
         return "jsonArray";
     }
 }

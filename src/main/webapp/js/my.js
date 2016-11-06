@@ -15,13 +15,13 @@ $(document).ready(function () {
         var url = "admin_login";
         //提交表单参数
         var params = $("#manageForm").serialize();
-        $.post(url,params,function (data) {
-            if(data==-1){
-
-            }else if(data==0){
-
-            }else if(data==1){
-
+        $.post(url,params,function(data) {
+            if(data== 1){
+                location.href = "teacherAddPage";
+            }else if(data == 0){
+                alert("密码错误！！！");
+            }else if(data== -1){
+                alert("用户名不存在！！！");
             }
         });
     });

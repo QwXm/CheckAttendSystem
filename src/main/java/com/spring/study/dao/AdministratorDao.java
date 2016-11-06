@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdministratorDao extends JpaRepository<Administrator, Integer> {
     /*查询实体*/
-    Administrator findAdministratorByUserName(String user_name);
+    Administrator findByUserName(String username);
 }
