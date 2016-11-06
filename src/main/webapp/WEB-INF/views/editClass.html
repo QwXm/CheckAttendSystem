@@ -35,21 +35,22 @@
                             <div class="form-group">
                                 <label>课程列表</label>
                                 <div class="list-group">
-                                    <div th:each="course : ${courses}">
+                                    <div th:each="course : ${courses }">
                                         <a href="javascript:;" class="list-group-item courseItem">
                                             <div class="row">
                                                 <div class="col-md-3" th:text="${course.id}">
                                                     100010
                                                 </div>
-                                                <div class="col-md-3" th:text="${course.name}">
+                                                <div class="col-md-3 cname" name="cname" th:text="${course.name}">
                                                     J2EE应用程序设计
                                                 </div>
-                                                <div class="col-md-3" th:text="第${course.end_week}周结课">
+                                                <div class="col-md-3 cendweek" name="cendweek" th:text="第${course.end_week}周结课">
                                                     第1周结课
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input id="startweek" type="text" hidden="hidden" th:value="${course.start_week }"/>
-                                                    <input id="section" type="text" hidden="hidden" th:value="${course.section }"/>
+                                                    <input class="cstartweek" type="text" hidden="hidden" th:value="${course.start_week }"/>
+                                                    <input class="csection" type="text" hidden="hidden" th:value="${course.section }"/>
+                                                    <input class="cdayweek" type="text" hidden="hidden" th:value="${course.day_for_week }"/>
                                                 </div>
                                             </div>
                                         </a>
@@ -89,50 +90,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label>上课日期</label>
-                                    <div class="input-group" id="weekDate">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="weekDate" value="1"
-                                                   th:text="*{empty weekDate} ? 'checked':''">星期一
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="weekDate" value="2"
-                                                   th:text="*{empty #weekDate} ? 'checked':''">星期二
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="weekDate" value="3"
-                                                   th:text="*{empty weekDate} ? 'checked':''">星期三
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="weekDate" value="4"
-                                                   th:text="*{empty weekDate} ? 'checked':''">星期四
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="weekDate" value="5"
-                                                   th:text="*{empty weekDate} ? 'checked':''">星期五
-                                        </label>
+                                    <div class="input-group" id="weekGroup">
                                     </div>
                                 </div>
                                 <!-- /每周上课的日期 -->
                                 <div class="form-group">
                                     <label>上课节次</label>
                                     <!-- 不考虑每周上课时间不一样 -->
-                                    <div class="input-group" id="section">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="section" value="1"
-                                                   th:text="*{empty section} ? 'checked':''">第一大节
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="section" value="2"
-                                                   th:text="*{empty section} ? 'checked':''">第二大节
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="section" value="3"
-                                                   th:text="*{empty section} ? 'checked':''">第三大节
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="section" value="4"
-                                                   th:text="*{empty section} ? 'checked':''">第四大节
-                                        </label>
+                                    <div class="input-group" id="sectionGroup">
                                     </div>
                                 </div>
                                 <!-- 上课当天的节次 -->
@@ -186,38 +151,42 @@
     });
 
     $(".courseItem").click(function () {
+        alert("asfasf");
         var startContent = "<option th:text='"+ 1 +"' th:value='" + 1 + "' selected='selected'>第一周</option>";
         var endContent="<option th:text='"+ 1 +"' th:value='" + 1 + "' selected='selected'>第一周</option>";
         var sectionContent = "";
-        var weekDate = "";
-        var sectionflag = 0;   //节次
-        var weekflag = 0;      //周次
-        while (sectionflag < 4){
-            if(sectionflag == $("#")){
+        var weekContent = "";
+        var sectionflag = 1;   //节次
+        var weekflag = 1;      //周次
+        /* 设定节次的选项--单选 */
+        while (sectionflag < 5){
+            if(sectionflag == $(this).find(".csection").val()){
                 sectionContent += "<label class='radio-inline'><input type='radio' " +
-                        "name='section' value='1' checked='checked'>第" + sectionflag+1 + "大节</label>";
+                        "name='section' value='1' checked='checked'>第" + sectionflag + "大节</label>";
             } else {
                 sectionContent += "<label class='radio-inline'><input type='radio' " +
-                        "name='section' value='1'>第" + sectionflag+1 + "大节</label>";
+                        "name='section' value='1'>第" + sectionflag + "大节</label>";
             }
             sectionflag++;
         }
-        while (sectionflag < 4){
-            if(sectionflag == $("#")){
-                sectionContent += "<label class='radio-inline'><input type='radio' " +
-                        "name='section' value='1' checked='checked'>第" + sectionflag+1 + "大节</label>";
+        /* 设定周次的选项--多选 */
+        while (weekflag < 6){
+            if($(this).find(".cdayweek").val().indexOf(weekflag) >= 0){
+                weekContent += "<label class='checkbox-inline'><input type='checkbox' " +
+                        "name='day_for_week' value='1' checked='checked'>星期" + weekflag + "</label>";
             } else {
-                sectionContent += "<label class='radio-inline'><input type='radio' " +
-                        "name='section' value='1'>第" + sectionflag+1 + "大节</label>";
+                weekContent += "<label class='checkbox-inline'><input type='checkbox' " +
+                        "name='day_for_week' value='1'>星期" + weekflag + "</label>";
             }
-            sectionflag++;
+            weekflag++;
         }
 
         $("#name").val();
-        $("#start_week").innerHTML(startContent);
-        $("#end_week").innerHTML(endContent);
-        $("#section").innerHTML();
-        $("#weekDate").innerHTML();
+        $("#start_week").append(startContent);
+        $("#end_week").append(endContent);
+        $("#sectionGroup").append();
+        $("#weekGroup").append();
+        return false;
     });
 </script>
 </body>

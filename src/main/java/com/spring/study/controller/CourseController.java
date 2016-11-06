@@ -102,8 +102,10 @@ public class CourseController {
 
     @RequestMapping("/addOrUpdateCourse")
     @ResponseBody
-    public String addOrUpdateCourse(Course course, Model model){
+    public String addOrUpdateCourse(Course course, Model model, @RequestParam("weekDate") String weekDate){
         System.out.println("添加课程"+course.getName());
+        System.out.println(weekDate);
+        course.setDay_for_week(weekDate);
         if(courseDao.save(course) != null){
             return "添加课程成功！！！";
         } else {
@@ -156,7 +158,7 @@ public class CourseController {
 
         /* 保存更新 */
         /* 没有更新操作，应该需要自定义 */
-        courseDao.save(course);
+        courseDao.saveAndFlush(course);
         return "forword:/CourseManager/classList";
     }
 
