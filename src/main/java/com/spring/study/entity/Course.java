@@ -19,16 +19,15 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//id
     private String name;//课程名
-    @ManyToMany(targetEntity = Teacher.class)
+    @ManyToMany(targetEntity = Teacher.class, fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_course",
                 joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
                 ,inverseJoinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"))
-    private Set<Teacher> teacher = new HashSet<Teacher>();//任课教师
+    private Set<Teacher> teacher;//任课教师
     @ManyToMany(targetEntity = Student.class, fetch = FetchType.EAGER)
     @JoinTable(name = "student_course",
             joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
-    @Cascade(CascadeType.ALL)
     private Set<Student> students;//上这门课的学生
     private Integer term;//学期
     private Integer start_week;//开始周次

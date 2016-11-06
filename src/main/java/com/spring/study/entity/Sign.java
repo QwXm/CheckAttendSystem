@@ -1,6 +1,11 @@
 package com.spring.study.entity;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,6 +28,7 @@ public class Sign {
     private Teacher teacher;//教师
     @ManyToOne(targetEntity = Course.class)
     @JoinColumn(name = "course_id",referencedColumnName = "id",nullable = false)
+    @Cascade(CascadeType.ALL)
     private Course course;        //课程
     @Temporal(TemporalType.DATE)
     private Date date;            //日期

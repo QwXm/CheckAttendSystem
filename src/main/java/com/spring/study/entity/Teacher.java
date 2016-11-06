@@ -17,12 +17,12 @@ public class Teacher {
     private String name;//姓名
     private String user;//用户名
     private String password;//密码
-    @ManyToMany(targetEntity = Course.class,fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_course",
                 joinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name="course_id",referencedColumnName = "id"))
     private Set<Course> courses;
-    @ManyToMany(targetEntity = Course.class)
+    @ManyToMany(targetEntity = Student.class, fetch = FetchType.EAGER)
     @JoinTable(name = "student_teacher",
             joinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"))

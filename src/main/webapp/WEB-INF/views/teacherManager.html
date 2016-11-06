@@ -124,24 +124,24 @@
 
     $(document).ready(function () {
         var flag = 1;
-        var endFlag = 20;
-        var htmlContent;
-        while (flag <= endFlag) {
+        var endFlag = 21;
+        var htmlContent = "";
+        while (flag.gt(endFlag)) {
             htmlContent += "<option " + "value='" + flag + "'>第" + flag + "周</option>";
             flag++;
-        }
+        };
         $("#start_week").append(htmlContent);
     });
     $("#start_week").click(function () {
         $("#end_week").empty();
         $("#end_week").append("<option>请选择结束上课周次</option>");
         var flag = $("#start_week").val();
-        var endFlag = 20;
-        var htmlContent;
-        while (flag <= endFlag) {
+        var endFlag = 21;
+        var htmlContent = "";
+        while (flag.gt(endFlag)) {
             htmlContent += "<option " + "value='" + flag + "'>第" + flag + "周</option>";
             flag++;
-        }
+        };
         $("#end_week").append(htmlContent);
     });
 </script>
