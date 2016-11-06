@@ -1,13 +1,12 @@
 package com.spring.study.controller;
 
-import com.spring.study.dao.CourseDao;
-import com.spring.study.dao.SignDao;
-import com.spring.study.dao.TimeManagerDao;
+import com.spring.study.dao.*;
 import com.spring.study.entity.*;
 import com.spring.study.util.CalculateRecord;
 
 import com.spring.study.util.CourseUtil;
 import com.spring.study.util.DateUtil;
+import com.spring.study.util.StudentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +30,10 @@ public class CourseController {
     private SignDao signDao;
     @Autowired
     private TimeManagerDao timeManagerDao;
+    @Autowired
+    private TeacherDao teacherDao;
+    @Autowired
+    private StudentDao studentDao;
 
     @RequestMapping("/teacherManager")
     public String teacherManager(){
@@ -203,7 +206,10 @@ public class CourseController {
     public String deleteCourse(@RequestParam("courseIds") String courseIds, HttpSession session){
         /* 删除id属于list的所有Course */
         List<Course> list = new ArrayList<>();
-        Iterator<Course> iterator = ((Teacher)session.getAttribute("cur_teacher")).getCourses().iterator();
+        List<Student> stuList = new ArrayList<>();
+        Teacher teacher = (Teacher) session.getAttribute("cur_teacher");
+        Iterator<Course> iterator = teacher.getCourses().iterator();
+
         while(iterator.hasNext()){
             Course course = iterator.next();
             if (courseIds.indexOf(course.getId().toString()) >= 0){
@@ -211,8 +217,11 @@ public class CourseController {
             }
         }
         System.out.println(list);
-        /* 级联删除的问题，如何保证不删除关联的对象 */
-        courseDao.deleteInBatch(list);
+        for (Course c : list) {
+            teacher.getCourses().remove(c);
+            StudentUtil.updateStudent(c, studentDao, teacher);
+        }
+        teacherDao.saveAndFlush(teacher);
         for (Course course : list) {
             CourseUtil.deleteCourseFormSession(session, course);
         }
