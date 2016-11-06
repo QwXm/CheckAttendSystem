@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Administrator on 2016/10/21.
+ * Created by AdministratorDao on 2016/10/21.
  */
 @Table
 @Entity
@@ -13,6 +13,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//ID
+    private String work_num;//职工号
     private String name;//姓名
     private String user;//用户名
     private String password;//密码
@@ -34,6 +35,14 @@ public class Teacher {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getWork_num() {
+        return work_num;
+    }
+
+    public void setWork_num(String work_num) {
+        this.work_num = work_num;
     }
 
     public String getName() {

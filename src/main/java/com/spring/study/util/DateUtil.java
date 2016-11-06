@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/10/30.
+ * Created by AdministratorDao on 2016/10/30.
  */
 public class DateUtil {
     public static boolean compareTime(Date current_data,Date date)

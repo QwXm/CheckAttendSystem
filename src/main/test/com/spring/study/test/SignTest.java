@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
- * Created by Administrator on 2016/10/30.
+ * Created by AdministratorDao on 2016/10/30.
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { WebConfig.class, ControllerConfig.class})

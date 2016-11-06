@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Administrator on 2016/10/21.
+ * Created by AdministratorDao on 2016/10/21.
  */
 @Entity
 @Table
@@ -34,6 +34,7 @@ public class Course {
     private Integer start_week;//开始周次
     private Integer end_week;//结束周次
     private Integer section;//节次
+    private String day_for_week;
 
     public Integer getId() {
         return id;
@@ -97,6 +98,14 @@ public class Course {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    public String getDay_for_week() {
+        return day_for_week;
+    }
+
+    public void setDay_for_week(String day_for_week) {
+        this.day_for_week = day_for_week;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Administrator on 2016/11/4.
+ * Created by AdministratorDao on 2016/11/4.
  */
 @Controller
 @RequestMapping(value = "StuManager")

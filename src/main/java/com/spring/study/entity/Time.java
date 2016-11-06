@@ -8,7 +8,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/10/23.
+ * Created by AdministratorDao on 2016/10/23.
  */
 @Embeddable
 public class Time {

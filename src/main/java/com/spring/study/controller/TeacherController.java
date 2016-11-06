@@ -18,13 +18,12 @@ import javax.servlet.http.HttpSession;
 public class TeacherController {
     @Autowired
     private TeacherDao teacherDao;
+
     @ResponseBody
     @RequestMapping(value = "/teacher_login",method = RequestMethod.POST)
     public String teacher_Login(@RequestParam("username") String username,
     @RequestParam("password") String password, HttpSession session)
     {
-        System.out.println(password);
-        System.out.println(username);
         String status = null;
         Teacher teacher = teacherDao.findByUser(username);
         if(teacher!=null)
@@ -45,7 +44,6 @@ public class TeacherController {
             session.setAttribute("cur_teacher", null);
             status = "-1";
         }
-        System.out.println(status);
         return status;
     }
 }
