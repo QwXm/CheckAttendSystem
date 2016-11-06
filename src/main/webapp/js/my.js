@@ -67,3 +67,23 @@ $(document).ready(function () {
 
 
 //------------------------
+$("#start_week").click(function(){
+    var htmlContent;
+    for(var flag=1;flag<=20;flag++){
+        htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
+    }
+    $("#start_week").append(htmlContent);
+    $("#end_week").empty();
+    $("#end_week").append("<option>请选择结束上课周次</option>");
+});
+
+$("#end_week").click(function(){
+    var flag = $("#start_week").val();
+    var endFlag = 20;
+    var htmlContent;
+    while (flag <= endFlag){
+        htmlContent += "<option "+"value='" + flag +"'>第"+ flag +"周</option>";
+        flag++;
+    }
+    $("#end_week").append(htmlContent);
+});

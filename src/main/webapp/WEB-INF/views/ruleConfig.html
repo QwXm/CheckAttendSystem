@@ -31,7 +31,7 @@
                             <h3 class="panel-title">规则扣分配置</h3>
                         </div>
                         <div class="panel-body paddingbuttom40px">
-                            <form role="form" id="ruleConfigForm">
+                            <form role="form" id="ruleConfigForm" th:action="@{/addRule}">
                                 <!-- 配置时间 -->
                                 <table class="table table-auto">
                                     <thead>
@@ -45,38 +45,38 @@
                                     <tbody>
                                     <tr>
                                         <td class="width100px" style="text-align: center;line-height: 35px;">迟到</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg1"/></td>
                                         <td style="line-height: 35px;width: 50px;">分钟</td>
                                         <td style="line-height: 35px;width: 50px;">扣除</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg2"/></td>
                                         <td style="line-height: 35px;">分</td>
                                     </tr>
                                     <tr>
                                         <td class="width100px" style="text-align: center;line-height: 35px;">迟到</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg3"/></td>
                                         <td style="line-height: 35px;width: 50px;">分钟</td>
                                         <td style="line-height: 35px;width: 50px;">扣除</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg4"/></td>
                                         <td style="line-height: 35px;">分</td>
                                     </tr>
                                     <tr>
                                         <td class="width100px" style="text-align: center;line-height: 35px;">早退</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg5"/></td>
                                         <td style="line-height: 35px;width: 50px;">分钟</td>
                                         <td style="line-height: 35px;width: 50px;">扣除</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg6"/></td>
                                         <td style="line-height: 35px;">分</td>
                                     </tr>
                                     <tr>
                                         <td class="width100px" style="text-align: center;line-height: 35px;">早退</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg7"/></td>
                                         <td style="line-height: 35px;width: 50px;">分钟</td>
                                         <td style="line-height: 35px;width: 50px;">扣除</td>
-                                        <td class="width100px"><input type="text" class="form-control"/></td>
+                                        <td class="width100px"><input type="text" class="form-control" th:name="arg8"/></td>
                                         <td style="line-height: 35px;">分</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6"><input type="button" value="确认添加新规则" class="btn btn-primary" style="margin-top: 20px;margin-left: 150px;"/></td>
+                                        <td colspan="6"><input type="submit" value="确认添加新规则" class="btn btn-primary" style="margin-top: 20px;margin-left: 150px;"/></td>
                                     </tr>
                                     </tbody>
                                 </table>

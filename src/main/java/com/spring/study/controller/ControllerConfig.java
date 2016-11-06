@@ -88,16 +88,9 @@ public class ControllerConfig {
                     //匹配扣分情况。。记录后将所有有关信息保存到签到表中
                     current_course = course;
                     Rule rule = ruleDao.findLastResult().get(0);
-                    Map<Integer,Integer> rules = rule.getRules();//获取所有规则
-                    Set key = rules.keySet();
-                    int[] keys = new int[4]; int j = 0;
-                    Iterator iterator = key.iterator();
-                    while(iterator.hasNext())
-                    {
-                        keys[j] = (int)iterator.next();
-                        j++;
-                    }
-                    System.out.println("测试"+keys[1]);
+                    List<Rules> rules = rule.getRules();//获取所有规则
+
+
                     //时间差
                     SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
                     long between_time = 0;
@@ -111,15 +104,15 @@ public class ControllerConfig {
                     int betweenTime = (int)between_time/(60*1000);
                     int deduction = 0;
                     String des_deduction = "";
-                    if(betweenTime>keys[0]&&betweenTime<keys[1])//迟到时间大于某个值小于某个值
+                    if(betweenTime>rules.get(0).getTime()&&betweenTime<rules.get(1).getTime())//迟到时间大于某个值小于某个值
                     {
-                        deduction = rules.get(keys[0]);
+                        deduction = rules.get(0).getValues();
                         des_deduction = "迟到";
                         status = "迟到";
                     }
-                    if(betweenTime>keys[1])//严重迟到
+                    if(betweenTime>rules.get(1).getTime())//严重迟到
                     {
-                        deduction = rules.get(keys[1]);
+                        deduction = rules.get(1).getValues();
                         des_deduction = "严重迟到";
                         status = "严重迟到";
                     }
