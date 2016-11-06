@@ -17,7 +17,7 @@ public class AdministratorController {
     @RequestMapping(value = "admin_login", method = RequestMethod.POST)
     public String admin_login(@RequestParam("user_name") String user_name, @RequestParam("password") String password) {
         String status = null;
-        Administrator admin = administratorDao.findAdministratorByUser_name(user_name);
+        Administrator admin = administratorDao.findAdministratorByUserName(user_name);
 
 
         return status;

@@ -13,7 +13,7 @@ import java.util.List;
 public interface CourseDao extends JpaRepository<Course, Integer> {
     Course findByName(String courseName);
 
-    void deleteCourseIdIn(List<Integer> list);
+    //void deleteCourseIdIn(List<Integer> list);
 
     Course findById(Integer courseId);
 }

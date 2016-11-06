@@ -7,7 +7,7 @@ import com.spring.study.entity.Sign;
 import com.spring.study.entity.Student;
 import com.spring.study.entity.Teacher;
 import com.spring.study.util.CalculateRecord;
-import net.sf.json.JSONArray;
+
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -149,7 +149,7 @@ public class CourseController {
     @RequestMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseIds") List<Integer> list){
         /* 删除id属于list的所有Course */
-        courseDao.deleteCourseIdIn(list);
+       // courseDao.deleteCourseIdIn(list);
         return "forword:/CourseManager/deleteClass";
     }
 
@@ -166,18 +166,6 @@ public class CourseController {
     @ResponseBody
     public String editCourseById(@RequestParam("courseId") Integer courseId,
                                  HttpSession session){
-
-        List<Course> courses = (List<Course>) session.getAttribute("courses");
-        Course cur_course = new Course();
-        for (Course course : courses) {
-            if (course.getId() == courseId){
-                cur_course = course;
-                break;
-            }
-        }
-        List<Course> list = new ArrayList<>();
-        list.add(cur_course);
-        JSONArray jsonArray = JSONArray.fromObject(list);    //将List集合转化为JSON对象
         return "jsonArray";
     }
 }

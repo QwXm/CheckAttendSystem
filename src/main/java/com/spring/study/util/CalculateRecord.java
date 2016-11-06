@@ -17,6 +17,6 @@ public class CalculateRecord {
                 record += sign.getDeduction();
             }
         }
-        return record;
+        return record+100;
     }
 }
