@@ -8,7 +8,7 @@ import javax.servlet.Filter;
 
 
 /**
- * Created by Administrator on 2016/9/27.
+ * Created by AdministratorDao on 2016/9/27.
  */
 public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override

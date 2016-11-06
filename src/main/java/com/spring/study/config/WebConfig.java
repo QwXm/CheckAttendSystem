@@ -13,7 +13,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 /**
- * Created by Administrator on 2016/10/8.
+ * Created by AdministratorDao on 2016/10/8.
  */
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.spring.study.controller","com.spring.study.config", "com.spring.study.dao"})

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/10/23.
+ * Created by AdministratorDao on 2016/10/23.
  */
 @Entity
 @Table

@@ -18,8 +18,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Created by Administrator on 2016/10/11.
- * Changed by Administrator on 2016/10/23.
+ * Created by AdministratorDao on 2016/10/11.
+ * Changed by AdministratorDao on 2016/10/23.
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "com.spring.study.dao" )

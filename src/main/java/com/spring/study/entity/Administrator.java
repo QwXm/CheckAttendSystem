@@ -3,7 +3,7 @@ package com.spring.study.entity;
 import javax.persistence.*;
 
 /**
- * Created by Administrator on 2016/10/21.
+ * Created by AdministratorDao on 2016/10/21.
  */
 @Table
 @Entity

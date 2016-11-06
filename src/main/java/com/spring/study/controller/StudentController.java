@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by Administrator on 2016/11/4.
+ * Created by AdministratorDao on 2016/11/4.
  */
 @Controller
 @RequestMapping(value = "StuManager")
