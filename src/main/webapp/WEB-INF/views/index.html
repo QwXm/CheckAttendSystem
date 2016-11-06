@@ -17,6 +17,10 @@
 	</head>
 
 	<body>
+		<div th:if="${user != null}">
+			<input type="hidden" th:value="${user}" id="user"/>
+		</div>
+
 		<div class="login-main">
 			<div class="login-title">欢迎使用课堂签到系统
 
@@ -38,7 +42,7 @@
 					<div class="tab-pane active" id="tab1">
 						<form action="index.html" method="post">
 							<div class="form-group hide" style="margin-top: 50px;" id="status"><div id="formError" class="alert" style="height: 45px;margin: 0;"></div></div>
-							<div class="form-group" style="margin-top: 80px;" id="first-input">
+							<div class="form-group " style="margin-top: 80px; text-align: center;" id="first-input">
 								<input type="text" class="form-control" placeholder="请输入学号" style="height: 45px;" name="studentNumber" th:name="studentNumber" id="studentNumber"/>
 							</div>
 							<button type="button" class="btn btn-primary" style="height: 45px; width: 100%; margin-top: 50px;" id="sign"><b>签  到</b></button>
@@ -100,33 +104,81 @@
 			</div>
 		</div>
 	<script>
+		$(document).ready(function () {
+			var flog = $("#user").val();
+			if(flog!=null)
+			{
+				var s = "已成功签到！欢迎回来签退";
+				$("#studentNumber").hide();
+				$("#first-input").text(s);
+				$("#sign").empty();
+				$("#sign").append("<b>签 退</b>");
+			}
+		})
 		$("#sign").click(function() {
+			var flog = $("#user").val();
+			if(flog!=null)
+			{
+				var params = "user="+flog;
+				var url = "student_login_out";
+				$.post(url,params,function (data) {
+					if(data==1)
+					{
+						$("#sign").hide();
+						$("#first-input").text("签退成功！谢谢使用");
+					}
+					if(data==-1)
+					{
+						$("#sign").hide();
+						$("#first-input").text("签退失败！请联系管理员");
+					}
+				})
+			}
+			else
+			{
+				var text = $("#studentNumber").val();
+				var params = "studentNumber="+text;
+				var url="student_sign";
+				$.post(url,params,function(data){
+					var s = "";
+					var temp = true;
+					if(data==-1)
+					{
+						s = "你的积极值得鼓励，现在不在上课时间";
+						$("#formError").addClass("alert-success");
+					}
+					if(data==0)
+					{
+						s = "恭喜你！现在没有课喔";
+						$("#formError").addClass("alert-info");
+					}
 
-					var text = $("#studentNumber").val();
-					var params = "studentNumber="+text;
-					var url="student_sign";
-					$.post(url,params,function(data){
-						var s = "";
-						if(data==-1)
-						{
-							s = "你的积极值得鼓励，现在不在上课时间";
-							$("#formError").addClass("alert-success");
-						}
-						if(data==0)
-						{
-							s = "恭喜你！现在没有课喔";
-							$("#formError").addClass("alert-info");
-						}
-
-						if(data==1)
-						{
-							s = "签到成功！记得下课时回来签退";
-							$("#fromError").addClass("alert-danger");
-						}
+					if(data==1)
+					{
+						s = "已成功签到！欢迎回来签退";
+						temp = false;
+						$("#formError").hide();
+						$("#studentNumber").hide();
+						$("#first-input").text(s);
+						$("#sign").empty();
+						$("#sign").append("<b>签 退</b>");
+					}
+					if(data==2)
+					{
+						s = "当前时间您已签到！请不要重复签到";
+						$("#formError").addClass("alert-danger");
+					}
+					if(temp)
+					{
 						$("#first-input").css("margin-top","0");
 						$("#formError").text(s);
 						$("#status").removeClass("hide");
-					})
+					}
+
+				})
+			}
+
+
 				}
 		)
 
