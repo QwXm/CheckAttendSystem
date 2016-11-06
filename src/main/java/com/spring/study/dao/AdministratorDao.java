@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdministratorDao extends JpaRepository<Administrator, Integer> {
-    @Query(value = "select count(*) from Administrator admin where admin.user_name = ? and admin.password = ?")
-    Integer findAdminCount(String user_name,String password);
-
+    /*查询实体*/
+    Administrator findAdministratorByUser_name(String user_name);
 }

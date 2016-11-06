@@ -1,6 +1,8 @@
 
 /*管理员登录前台数据校验*/
 $(document).ready(function () {
+
+    /*前台数据校验*/
     $("#loginButton").bind("click", function () {
         if ($("#user_name").val() == '') {
             alert("账号不能为空！！！");
@@ -9,7 +11,21 @@ $(document).ready(function () {
             alert("密码不能为空！！！");
             return false;
         }
+        //异步提交url
+        var url = "admin_login";
+        //提交表单参数
+        var params = $("#manageForm").serialize();
+        $.post(url,params,function (data) {
+            if(data==-1){
+
+            }else if(data==0){
+
+            }else if(data==1){
+
+            }
+        });
     });
+
 });
 /*教师添加前台数据校验*/
 $(document).ready(function () {

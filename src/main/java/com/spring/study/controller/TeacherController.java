@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TeacherController {
     @Autowired
     private TeacherDao teacherDao;
+
     @ResponseBody
     @RequestMapping(value = "/teacher_login",method = RequestMethod.POST)
     public String teacher_Login(@RequestParam("username") String username, @RequestParam("password") String password)
