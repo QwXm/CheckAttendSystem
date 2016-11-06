@@ -24,7 +24,7 @@ public class Course {
                 joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
                 ,inverseJoinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"))
     private Set<Teacher> teacher = new HashSet<Teacher>();//任课教师
-    @ManyToMany(targetEntity = Teacher.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Student.class, fetch = FetchType.EAGER)
     @JoinTable(name = "student_course",
             joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))

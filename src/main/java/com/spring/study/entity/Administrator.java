@@ -11,7 +11,7 @@ public class Administrator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//ID
-    private String user_name;//用户名
+    private String userName;//用户名
     private String password;//密码
 
     public Integer getId() {
@@ -23,11 +23,11 @@ public class Administrator {
     }
 
     public String getUser_name() {
-        return user_name;
+        return userName;
     }
 
     public void setUser_name(String user_name) {
-        this.user_name = user_name;
+        this.userName = user_name;
     }
 
     public String getPassword() {
