@@ -6,6 +6,7 @@ import com.spring.study.dao.TeacherDao;
 import com.spring.study.entity.Course;
 import com.spring.study.entity.Student;
 import com.spring.study.entity.Teacher;
+import com.spring.study.util.CourseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,16 +49,15 @@ public class StudentController {
     }
 
     @RequestMapping("addStuToClass")
-    public String addStuFroClass(Student student, @RequestParam("courseName") String courseName){
+    public String addStuFroClass(Student student, @RequestParam("courseName") String courseName,
+                                 HttpSession session){
         System.out.println(student.getName());
-        System.out.println("this is add student to class");
+        System.out.println(courseName);
         Course course = courseDao.findByName(courseName);
         course.getStudents().add(student);
         courseDao.save(course);
-        /*Set<Course> courses = student.getCourses();
-        student.getCourses().add(course);
-        student.setCourses(courses);*/
+        CourseUtil.updateSessionTeacher(session, course);
 
-        return "teacherManager";
+        return "redirect:/CourseManager/classList";
     }
 }

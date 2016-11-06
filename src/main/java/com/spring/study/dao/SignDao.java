@@ -16,4 +16,6 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public interface  SignDao extends JpaRepository<Sign,Integer>{
 
     List<Sign> findAllByCourse_id(Integer id);
+
+    List<Sign> findAllByCourse_idAndTeacher_id(Integer courseId, Integer teacherId);
 }
