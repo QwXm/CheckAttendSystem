@@ -1,6 +1,7 @@
 package com.spring.study.util;
 
 import javax.xml.crypto.Data;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,5 +33,17 @@ public class DateUtil {
 
         }
         return false;
+    }
+    /*转变格式*/
+    public static Date changeDate(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        Date afterDate = formatter.parse(date);
+        return afterDate;
+    }
+    /*转变格式*/
+    public static Date changeTime(String time) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+        Date afterTime = formatter.parse(time);
+        return afterTime;
     }
 }
