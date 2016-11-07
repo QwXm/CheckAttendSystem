@@ -1,0 +1,219 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>管理员管理</title>
+    <link rel="stylesheet" href="../../css/my.css" th:href="@{/css/my.css}"/>
+    <link rel="stylesheet" href="../../css/style.css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="../../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="../../css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}"/>
+    <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"
+            th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"
+            th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="../../js/my.js"
+            th:src="@{/js/my.js}"></script>
+</head>
+
+
+<body>
+<div class="jumbotron pageTop" style="padding-top: 10px; margin-bottom: 0px;"
+     th:substituteby="htmlModel :: commonTop"></div>
+<!-- 头部文件 -->
+<div class="pageContent">
+    <nav id="navbar-example" class="navbar navbar-default navbar-static" role="navigation"
+         style="border-radius: inherit;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;">Hathaway</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated
+                                            link</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated
+                                            link</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated
+                                            link</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </div>
+                <div class="col-md-2">
+                    <div>
+                        <a class="navbar-brand" href="javascript:;" style="font-size: 14px;">[Logout]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- top Guider -->
+    <div class="row">
+        <div class="col-md-1"></div>
+
+    </div>
+    <!-- /面包屑导航 -->
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="wrapper">
+
+                <nav class="h_leftMenu">
+                    <ul class="list-group" style="list-style: none;">
+                        <li>
+                            <a href="javascript:;" class="list-group-item">
+                                <font class="fontsize">教师管理</font>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{timePage}" class="list-group-item">
+                                <font class="fontsize">时间管理</font>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="h_right-content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">添加教师</h3>
+                        </div>
+                        <div class="panel-body">
+                            <!--表單提交-->
+                            <form name="addTeacherForm" id="addTeacherForm" class="form-horizontal"  method="post">
+                                <div class="form-group">
+                                    <label class="col-sm-2">*教工号码</label>
+                                    <div class="col-md-4 col-sm-10">
+                                        <input type="text" id="work_num" name="work_num" class="form-control"
+                                                placeholder="教工号"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2">*教师姓名</label>
+                                    <div class="col-md-4 col-sm-10">
+                                        <input type="text" name="name" id="name"  class="form-control"
+                                               placeholder="姓名"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2">*用 户 名</label>
+                                    <div class="col-md-4 col-sm-10">
+                                        <input type="text" name="user" id="user"  class="form-control"
+                                               placeholder="姓名"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" class="btn btn-default" id="addButton">添加</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+</div>
+<!-- this is content -->
+<div class="pageButtom">
+    <label>Copyright © 2016 Hathaway. All Rights Reserved.</label>
+</div>
+<!--弹窗-->
+
+
+<!-- this is buttom -->
+<script type="text/javascript" src="../../js/jquery-3.1.1.min.js"
+        th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"
+        th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="../../js/my.js"
+        th:src="@{/js/my.js}"></script>
+<script>
+    $('.dropdown-toggle').dropdown();
+
+    $("#user").bind("focusout",function () {
+        $("#password").val($("#work_num").val());
+    })
+
+    $("#addButton").bind("click", function () {
+        if($("#work_num").val()=='') {
+            alert("教工号不能为空！！！");
+            return false;
+        }else if($("#name").val()=='') {
+            alert("教师名称不能为空！！！");
+            return false;
+        }else if($("#password").val()==''){
+            alert("密码不能为空！！！");
+            return false;
+        }
+        /*访问路径*/
+        var url = "add";
+        /*访问参数*/
+        var params = $("#addTeacherForm").serialize();
+        $.post(url,params,function(data){
+            if(data==1){
+                alert("添加成功！！！");
+            }else if(data==0) {
+                alert("用户名已存在！！！");
+            }
+        });
+    });
+</script>
+</body>
+</html>
