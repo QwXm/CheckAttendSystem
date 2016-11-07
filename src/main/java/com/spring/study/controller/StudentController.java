@@ -54,6 +54,7 @@ public class StudentController {
         System.out.println(student.getName());
         System.out.println(courseName);
         Course course = courseDao.findByName(courseName);
+        studentDao.save(student);
         course.getStudents().add(student);
         courseDao.save(course);
         CourseUtil.updateSessionTeacher(session, course);
