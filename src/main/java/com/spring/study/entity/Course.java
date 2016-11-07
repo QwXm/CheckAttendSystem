@@ -19,16 +19,15 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//id
     private String name;//课程名
-    @ManyToMany(targetEntity = Teacher.class)
+    @ManyToMany(targetEntity = Teacher.class, fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_course",
                 joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id")
                 ,inverseJoinColumns = @JoinColumn(name = "teacher_id",referencedColumnName = "id"))
-    private Set<Teacher> teacher = new HashSet<Teacher>();//任课教师
+    private Set<Teacher> teacher;//任课教师
     @ManyToMany(targetEntity = Student.class, fetch = FetchType.EAGER)
     @JoinTable(name = "student_course",
             joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
-    @Cascade(CascadeType.ALL)
     private Set<Student> students;//上这门课的学生
     private Integer term;//学期
     private Integer start_week;//开始周次
@@ -129,5 +128,21 @@ public class Course {
         result = 31 * result + (end_week != null ? end_week.hashCode() : 0);
         result = 31 * result + (section != null ? section.hashCode() : 0);
         return result;
+    }
+
+    /* 自定义方法--Lucien */
+    public boolean hasWeek(int week){
+        if(!(this.getDay_for_week().equals(""))){
+            return this.getDay_for_week().indexOf(week+"")>-1;
+        } else {
+            return false;
+        }
+    }
+    public boolean hasSection(int section){
+        if (section>-1){
+            return this.getSection()==section;
+        } else {
+            return false;
+        }
     }
 }

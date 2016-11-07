@@ -36,7 +36,7 @@
                                 <label>课程列表</label>
                                 <div class="list-group">
                                     <div th:each="course : ${courses }">
-                                        <a href="javascript:;" class="list-group-item courseItem">
+                                        <a th:href="@{/CourseManager/editSelectCourse(courseId=${course.id })}" class="list-group-item courseItem">
                                             <div class="row">
                                                 <div class="col-md-3" th:text="${course.id}">
                                                     100010
@@ -44,7 +44,7 @@
                                                 <div class="col-md-3 cname" name="cname" th:text="${course.name}">
                                                     J2EE应用程序设计
                                                 </div>
-                                                <div class="col-md-3 cendweek" name="cendweek" th:text="第${course.end_week}周结课">
+                                                <div class="col-md-3 cendweek" name="cendweek" th:text="第 + ${course.end_week} + 结课">
                                                     第1周结课
                                                 </div>
                                                 <div class="col-md-3">
@@ -64,12 +64,14 @@
                             <div class="form-group">
                                 <h4><b>编辑课程信息</b></h4>
                             </div>
-                            <form role="form" id="updateCourseForm">
+                            <form role="form" id="updateCourseForm" th:action="@{/CourseManager/updateCourse}">
                                 <div class="form-group">
                                     <label>课程名称</label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                           th:name="name" autofocus="autofocus" placeholder="请输入课程名称(必填)"/>
+                                           th:name="name" th:value="${editCourse.name }" autofocus="autofocus" placeholder="请输入课程名称(必填)"/>
                                 </div>
+                                <input type="text" class="form-control" name="id"
+                                       th:name="id" th:value="${editCourse.id }" th:hidden="hidden"/>
                                 <div class="form-group">
                                     <label>当前学期</label>
                                     <input type="text" class="form-control"
@@ -80,10 +82,52 @@
                                     <div class="input-group">
                                         <select class="form-control" name="start_week" id="start_week"
                                                 th:name="start_week">
+                                            <option th:value="${editCourse.start_week}" checked="checked" th:text="第 + ${editCourse.start_week} + 周">请选择开始上课周次</option>
+                                            <option value="1">第一周</option>
+                                            <option value="2">第二周</option>
+                                            <option value="3">第三周</option>
+                                            <option value="4">第四周</option>
+                                            <option value="5">第五周</option>
+                                            <option value="6">第六周</option>
+                                            <option value="7">第七周</option>
+                                            <option value="8">第八周</option>
+                                            <option value="9">第九周</option>
+                                            <option value="10">第十周</option>
+                                            <option value="11">第十一周</option>
+                                            <option value="12">第十二周</option>
+                                            <option value="13">第十三周</option>
+                                            <option value="14">第十四周</option>
+                                            <option value="15">第十五周</option>
+                                            <option value="16">第十六周</option>
+                                            <option value="17">第十七周</option>
+                                            <option value="18">第十八周</option>
+                                            <option value="19">第十九周</option>
+                                            <option value="20">第二十周</option>
                                             <!-- 通过jquery添加选项 -->
                                         </select>
                                         <span class="input-group-addon fix-border fix-padding"></span>
                                         <select class="form-control" name="end_week" id="end_week" th:name="end_week">
+                                            <option th:value="${editCourse.end_week}" checked="checked" th:text="第 + ${editCourse.end_week} + 周">请选择开始上课周次</option>
+                                            <option value="1">第一周</option>
+                                            <option value="2">第二周</option>
+                                            <option value="3">第三周</option>
+                                            <option value="4">第四周</option>
+                                            <option value="5">第五周</option>
+                                            <option value="6">第六周</option>
+                                            <option value="7">第七周</option>
+                                            <option value="8">第八周</option>
+                                            <option value="9">第九周</option>
+                                            <option value="10">第十周</option>
+                                            <option value="11">第十一周</option>
+                                            <option value="12">第十二周</option>
+                                            <option value="13">第十三周</option>
+                                            <option value="14">第十四周</option>
+                                            <option value="15">第十五周</option>
+                                            <option value="16">第十六周</option>
+                                            <option value="17">第十七周</option>
+                                            <option value="18">第十八周</option>
+                                            <option value="19">第十九周</option>
+                                            <option value="20">第二十周</option>
                                             <!-- 通过jquery添加选项 -->
                                         </select>
                                     </div>
@@ -91,6 +135,21 @@
                                 <div class="form-group">
                                     <label>上课日期</label>
                                     <div class="input-group" id="weekGroup">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" th:name="day_for_week" name="day_for_week" th:checked="${editCourse.hasWeek(2)}?'checked'" value="2"/>星期一
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" th:name="day_for_week" name="day_for_week" th:checked="${editCourse.hasWeek(3)}?'checked'" value="3"/>星期二
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" th:name="day_for_week" name="day_for_week" th:checked="${editCourse.hasWeek(4)}?'checked'" value="4"/>星期三
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" th:name="day_for_week" name="day_for_week" th:checked="${editCourse.hasWeek(5)}?'checked'" value="5"/>星期四
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" th:name="day_for_week" name="day_for_week" th:checked="${editCourse.hasWeek(6)}?'checked'" value="6"/>星期五
+                                        </label>
                                     </div>
                                 </div>
                                 <!-- /每周上课的日期 -->
@@ -98,6 +157,30 @@
                                     <label>上课节次</label>
                                     <!-- 不考虑每周上课时间不一样 -->
                                     <div class="input-group" id="sectionGroup">
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(0)}?'checked'" value="0"/>第一大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(1)}?'checked'" value="1"/>第二大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(2)}?'checked'" value="2"/>第三大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(3)}?'checked'" value="3"/>第四大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(4)}?'checked'" value="4"/>第五大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(5)}?'checked'" value="5"/>第六大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(6)}?'checked'" value="6"/>第七大节
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" th:name="section" name="section" th:checked="${editCourse.hasSection(7)}?'checked'" value="7"/>第八大节
+                                        </label>
                                     </div>
                                 </div>
                                 <!-- 上课当天的节次 -->
@@ -125,69 +208,7 @@
 <script type="text/javascript" src="../../js/my.js"
         th:src="@{/js/my.js}"></script>
 <script>
-    $('.dropdown-toggle').dropdown();
-
-    $(document).ready(function () {
-        var flag = 1;
-        var endFlag = 20;
-        var htmlContent;
-        while (flag <= endFlag) {
-            htmlContent += "<option " + "value='" + flag + "'>第" + flag + "周</option>";
-            flag++;
-        }
-        $("#start_week").append(htmlContent);
-    });
-    $("#start_week").click(function () {
-        $("#end_week").empty();
-        $("#end_week").append("<option>请选择结束上课周次</option>");
-        var flag = $("#start_week").val();
-        var endFlag = 20;
-        var htmlContent;
-        while (flag <= endFlag) {
-            htmlContent += "<option " + "value='" + flag + "'>第" + flag + "周</option>";
-            flag++;
-        }
-        $("#end_week").append(htmlContent);
-    });
-
-    $(".courseItem").click(function () {
-        alert("asfasf");
-        var startContent = "<option th:text='"+ 1 +"' th:value='" + 1 + "' selected='selected'>第一周</option>";
-        var endContent="<option th:text='"+ 1 +"' th:value='" + 1 + "' selected='selected'>第一周</option>";
-        var sectionContent = "";
-        var weekContent = "";
-        var sectionflag = 1;   //节次
-        var weekflag = 1;      //周次
-        /* 设定节次的选项--单选 */
-        while (sectionflag < 5){
-            if(sectionflag == $(this).find(".csection").val()){
-                sectionContent += "<label class='radio-inline'><input type='radio' " +
-                        "name='section' value='1' checked='checked'>第" + sectionflag + "大节</label>";
-            } else {
-                sectionContent += "<label class='radio-inline'><input type='radio' " +
-                        "name='section' value='1'>第" + sectionflag + "大节</label>";
-            }
-            sectionflag++;
-        }
-        /* 设定周次的选项--多选 */
-        while (weekflag < 6){
-            if($(this).find(".cdayweek").val().indexOf(weekflag) >= 0){
-                weekContent += "<label class='checkbox-inline'><input type='checkbox' " +
-                        "name='day_for_week' value='1' checked='checked'>星期" + weekflag + "</label>";
-            } else {
-                weekContent += "<label class='checkbox-inline'><input type='checkbox' " +
-                        "name='day_for_week' value='1'>星期" + weekflag + "</label>";
-            }
-            weekflag++;
-        }
-
-        $("#name").val();
-        $("#start_week").append(startContent);
-        $("#end_week").append(endContent);
-        $("#sectionGroup").append();
-        $("#weekGroup").append();
-        return false;
-    });
+    $('.dropdown-toggle').dropdown()
 </script>
 </body>
 
