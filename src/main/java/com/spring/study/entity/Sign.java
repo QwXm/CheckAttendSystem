@@ -28,7 +28,7 @@ public class Sign {
     private Teacher teacher;//教师
     @ManyToOne(targetEntity = Course.class)
     @JoinColumn(name = "course_id",referencedColumnName = "id",nullable = false)
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.REFRESH)
     private Course course;        //课程
     @Temporal(TemporalType.DATE)
     private Date date;            //日期

@@ -132,10 +132,10 @@ public class Course {
 
     /* 自定义方法--Lucien */
     public boolean hasWeek(int week){
-        if(!(this.getDay_for_week().equals(""))){
-            return this.getDay_for_week().indexOf(week+"")>-1;
-        } else {
+        if("".equals(this.getDay_for_week())|| this.getDay_for_week()==null){
             return false;
+        } else {
+            return this.getDay_for_week().indexOf(week+"")>-1;
         }
     }
     public boolean hasSection(int section){

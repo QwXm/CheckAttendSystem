@@ -101,6 +101,7 @@ public class ControllerConfig {
                 //如果在当前周当前节次类有匹配的课程，说明该学生此时有课
                 if (IsCurrentDay&&course.getStart_week()<=current_week&&course.getEnd_week()>=current_week&&course.getSection()==(i+1))
                 {
+                    System.out.println("成功。。。。");
                     //匹配扣分情况。。记录后将所有有关信息保存到签到表中
                     current_course = course;
                     Rule rule = ruleDao.findLastResult().get(0);
@@ -152,6 +153,7 @@ public class ControllerConfig {
                     }
                     else {
                         //添加Cookie
+                        System.out.println("FUCK");
                         Cookie c1 = new Cookie("user",student.getStudentNumber());
                         Cookie c2 = new Cookie("teacherId",current_teacher.getId()+"");
                         Cookie c3 = new Cookie("courseId",current_course.getId()+"");
@@ -169,7 +171,7 @@ public class ControllerConfig {
                         sign.setDes_deduction(des_deduction);
                         sign.setStudent(student);
                         sign.setTeacher(current_teacher);
-                        signDao.save(sign);
+                        signDao.saveAndFlush(sign);
                         status = "1";
                     }
 
