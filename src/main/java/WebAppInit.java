@@ -25,7 +25,6 @@ public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitial
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
-
     @Override
     protected Filter[] getServletFilters() {
         return new Filter[]{new CharacterEncodingFilter("UTF-8")};

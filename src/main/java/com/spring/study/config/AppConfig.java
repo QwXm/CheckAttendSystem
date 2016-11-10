@@ -1,12 +1,9 @@
 package com.spring.study.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,6 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * Created by AdministratorDao on 2016/10/11.
@@ -32,26 +30,35 @@ public class AppConfig {
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactoryBean.setPackagesToScan("com.spring.study.entity");
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.import_files", "classpath:init.sql");
+        properties.setProperty("hibernate.hbm2ddl.auto","create");
+        properties.setProperty("hibernate.connection.useUnicode","true");
+        properties.setProperty("hibernate.connection.characterEncoding","UTF-8");
+        properties.setProperty("hibernate.connection.charSet","UTF-8");
+        entityManagerFactoryBean.setJpaProperties(properties);
         return entityManagerFactoryBean;
     }
     @Bean
     public DataSource dataSource()
     {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/CourseManager?useUnicode=true&amp;characterEncoding=UTF-8");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
+        dataSource.setDriverClassName("org.h2.Driver");
+        //dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/CourseManager?useUnicode=true&amp;characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/checksystem");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("");
+
         return dataSource;
     }
     @Bean
     public JpaVendorAdapter jpaVendorAdapter()
     {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setDatabase(Database.MYSQL);
-        jpaVendorAdapter.setGenerateDdl(true);
+        jpaVendorAdapter.setDatabase(Database.H2);
+        //jpaVendorAdapter.setGenerateDdl(false);
         jpaVendorAdapter.setShowSql(true);
-        jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
+        jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
         return jpaVendorAdapter;
     }
     @Bean(name = "transactionManager")//必须有一个名为transactionManager的Bean

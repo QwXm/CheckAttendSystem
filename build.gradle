@@ -19,4 +19,6 @@ dependencies {
     compile("org.hibernate:hibernate-entitymanager:5.1.0.Final")
     compile("org.springframework:spring-test:4.3.1.RELEASE")
     compile("mysql:mysql-connector-java:5.1.38")
+    //compile("org.apache.ant:ant:1.9.4")
+    compile("com.h2database:h2:1.4.192")
 }
